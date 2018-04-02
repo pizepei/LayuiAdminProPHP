@@ -92,7 +92,7 @@ www  WEB部署目录（或者子目录）
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
  ## 开始构建：
-   + 1、安装好ThinkPHP5.0。
-   + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
-   + 3、使用本项目代码在根目录进行粘贴替换。
-   + 4、根据自己项目的需求对应用目录下config.php进行配置修改。
+ + 1、安装好ThinkPHP5.0。
+ + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
+ + 3、使用本项目代码在根目录进行粘贴替换。
+ + 4、根据自己项目的需求对应用目录下config.php进行配置修改。
