@@ -3,17 +3,31 @@
  * @Author: pizepei
  * @Date:   2018-02-22 14:32:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-02-22 16:06:03
+ * @Last Modified time: 2018-04-02 11:33:28
  */
 namespace app\login\controller;
 use think\Controller;
 use Redis\RedisModel;
 use app\login\model\Login as Addlogout;
 /**
- * 退出登录
+ * 退出登录模块
  */
 class Logout extends \VerifiController\AdminLoginVerifi
 {
+
+    /**
+     * [title 标题]
+     * @Effect
+     * @return [type] [description]
+     */
+    static function title()
+    {
+
+        return[
+        'logout'=>'退出登录接口',
+        ];
+
+    }
     /**
      * [logout 退出登录 清空]
      * @Effect
@@ -22,11 +36,6 @@ class Logout extends \VerifiController\AdminLoginVerifi
     public function logout()
     {
         $Addlogout = new Addlogout;
-        if($Addlogout->logout($this->access_token,$this->UserData)['error'] != 0)
-        {
-            $this->error('退出登录失败');
-        }
-        $this->success('退出成功');
+        Result($Addlogout->logout($this->access_token,$this->UserData,'redis'));
     }
-
 }

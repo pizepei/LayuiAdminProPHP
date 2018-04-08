@@ -1,6 +1,8 @@
 <?php
 namespace menu;
 use think\Model;
+use think\Cache;
+
 /**
  * 登录用户模型
  */
@@ -19,9 +21,9 @@ class AdminMenu extends Model {
 
         $AppMenu = new static();
         //获取总数据
-        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->select();
+        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->cache('AdminMenu_getMenu_Menu')->select();
         // 获取一级菜单并进行排序
-        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->select();
+        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->cache('AdminMenu_getMenu_fatherMenu')->select();
         $Menu =$Menu ->toArray();
         $fatherMenu =$fatherMenu ->toArray();
 
@@ -164,6 +166,7 @@ class AdminMenu extends Model {
         // 过滤post数组中的非数据表字段数据
         // dump($Menu->allowField(true)->save());
         if($Menu->allowField(true)->save()){
+            self::saveCache();
 
             return true;
         }
@@ -188,6 +191,7 @@ class AdminMenu extends Model {
 
         // 视图名称  显示标题   图标  排序  状态，0为正常，1为锁定
         if($Menu->allowField(['name','title','icon','sort','status'])->save($Data, ['id' =>$Id])){
+            self::saveCache();
 
             return true;
         }
@@ -214,12 +218,26 @@ class AdminMenu extends Model {
         }
 
         if($Menu->allowField(['isdel'])->save($Data, ['id' =>$Id])){
-            return ['code'=>1,'msg'=>'删除成功'];
+            self::saveCache();
+            return ['code'=>0,'msg'=>'删除成功'];
         }
-        return ['code'=>0,'msg'=>'删除失败'];
+        return ['code'=>1,'msg'=>'删除失败'];
     }
 
 
+    /**
+     * [saveCache 更新缓存]
+     * @Effect
+     * @return [type] [description]
+     */
+    public static function saveCache()
+    {
+
+        Cache::rm('AdminMenu_getMenu_Menu'); 
+        Cache::rm('AdminMenu_getMenu_fatherMenu'); 
+
+
+    }
 
 
 }

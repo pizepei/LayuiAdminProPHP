@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-03-01 17:50:21
+ * @Last Modified time: 2018-04-03 09:57:33
  */
 namespace VerifiController;
 use think\Controller;
@@ -41,7 +41,7 @@ class UserLoginVerifi extends Controller
         $Data = explode('.',$this->access_token);
         if(count($Data) != 3){
            $this->error('非法请求');
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
         }
         $access_data = $Safetylogin->decodeJWT($this->access_token);
@@ -58,7 +58,7 @@ class UserLoginVerifi extends Controller
                  $logout->logout($Data[2],['id'=>$access_data['uid']]);
              }
             if($access_data['error'] == 1){ Log::addLog(['id'=>$access_data['data'],'info'=>$access_data['msg']],1); }//会员错误日志
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
 
             // $this->error($access_data['msg']);
@@ -75,7 +75,7 @@ class UserLoginVerifi extends Controller
             $UserIfonData = $UserData->hidden(['pwd_salt','pwd_hash'])->toArray();
             if(!$UserIfonData){
                 \heillog\ErrorLog::addLog('登录验证通过后','验证通过但是数据库没有用户数据',2);
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
 
                 // $this->error('意外的错误[v001]');//用户数据不存在
@@ -87,7 +87,7 @@ class UserLoginVerifi extends Controller
             if(!$error){
 
                 \heillog\ErrorLog::addLog('登录验证通过后','缓存用户数据到redis中',2);
-                echo json_encode(['code'=>'L1001']);
+                echo json_encode(['code'=>1001]);
                 exit;
 
                 // $this->error('意外的错误[v002]');return;
@@ -98,11 +98,6 @@ class UserLoginVerifi extends Controller
         }
         // $this->success('新增成功', 'User/list');
     }
-
-    public function jsonpReturn($data,$code){
-
-    }
-
 
 
 }

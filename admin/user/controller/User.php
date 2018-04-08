@@ -2,8 +2,8 @@
 /**
  * @Author: anchen
  * @Date:   2018-02-14 15:21:06
- * @Last Modified by:   anchen
- * @Last Modified time: 2018-02-14 18:33:44
+ * @Last Modified by:   pizepei
+ * @Last Modified time: 2018-03-29 17:41:40
  */
 
 
@@ -20,8 +20,7 @@ class User extends \VerifiController\AdminLoginVerifi
     public function userSeesion()
     {
         //获取用户数据
-        // dump($this->UserData);
-        $this->success('获取成功','',$this->UserData);
+        Result($this->UserData);
     }
 
     /**

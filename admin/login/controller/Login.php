@@ -3,23 +3,37 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-02-27 17:00:26
+ * @Last Modified time: 2018-04-02 10:01:48
  */
 namespace app\login\controller;
 use think\Controller;
 use Redis\RedisModel;
 use app\login\model\Login as AddLogin;
+/**
+ * 登录模块
+ */
 class Login extends Controller
 {
     /**
-     * [login 登录类]
+     * [title 标题]
+     * @Effect
+     * @return [type] [description]
+     */
+    static function title()
+    {
+
+        return[
+        'login'=>'登录接口',
+        ];
+
+    }
+    /**
+     * [login 登录接口]
      * @Effect
      * @return [type] [description]
      */
     public function login()
     {
-        // $name = 'pizepei';
-        // $Password = 'PzP386356321';
         $username = input('username');
         $password = input('password');
         $vercode = input('vercode');
@@ -30,17 +44,9 @@ class Login extends Controller
         }
         //登录
         $Login = new AddLogin;
-        $LoginData = $Login->loginAction($username,$password,$remember,$rememberTime);
-        if($LoginData['error'] == 1){
-            $this->success($LoginData['msg'],'',['access_token'=>$LoginData['data']]);
-
-        }else{
-
-            $this->error($LoginData['msg']);
-
-        }
+        Result($Login->loginActionRedis($username,$password,$remember,$rememberTime));//redis 版本
+        Result($Login->loginAction($username,$password,$remember,$rememberTime));// redis +mysql
     }
-
 
 
 }

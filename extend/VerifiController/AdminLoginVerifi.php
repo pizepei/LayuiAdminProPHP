@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-02 11:53:02
+ * @Last Modified time: 2018-04-03 10:57:45
  */
 namespace VerifiController;
 use think\Controller;
@@ -18,19 +18,16 @@ class AdminLoginVerifi extends Controller
     protected $UserData = '';
     protected $access_token = '';
 
-
     public function __construct()
     {
 
         // $this->atups();
         // exit;
-
         // 检测php环境
         if (!extension_loaded('redis')) {
             throw new Exception('not support:redis');
         }
         $this->access_token = input('access_token');
-        
         //JWT登录验证
         $this->VerifiDecodeJWT();
     }
@@ -45,7 +42,7 @@ class AdminLoginVerifi extends Controller
         $Data = explode('.',$this->access_token);
         if(count($Data) != 3){
            $this->error('非法请求');
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
         }
         $access_data = $Safetylogin->decodeJWT($this->access_token,'admin');
@@ -55,7 +52,7 @@ class AdminLoginVerifi extends Controller
             //错误日志
             if($access_data['error'] == 2){ \heillog\ErrorLog::addLog('管理后台登录验证',$access_data['data'],2); }//系统错误日志 2
             if($access_data['error'] == 1){ Log::addLog(['id'=>$access_data['data'],'info'=>$access_data['msg']],1); }//会员错误日志
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
         }
 
@@ -70,7 +67,7 @@ class AdminLoginVerifi extends Controller
             $UserIfonData = $UserData->hidden(['pwd_salt','pwd_hash','phone'])->toArray();
             if(!$UserIfonData){
                 \heillog\ErrorLog::addLog('登录验证通过后','验证通过但是数据库没有用户数据',2);
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
             }
             //复制个$this->UaerData
@@ -79,7 +76,7 @@ class AdminLoginVerifi extends Controller
             $error = $redis->set_user_data($user_id,$UserIfonData);
             if(!$error){
                 \heillog\ErrorLog::addLog('登录验证通过后','缓存用户数据到redis中',2);
-                echo json_encode(['code'=>'L1001']);
+                echo json_encode(['code'=>1001]);
                 exit;
             }
         }else{
@@ -91,7 +88,6 @@ class AdminLoginVerifi extends Controller
     public function atups()
     {
         $bangs = CONF_PATH;
-
 
         // $rbac = Cache::get('rbac');
 

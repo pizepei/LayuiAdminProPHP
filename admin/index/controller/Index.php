@@ -7,12 +7,30 @@ use Redis\RedisModel;
 use app\index\model\Login;
 use SendMail\Mail;
 // class Index extends \VerifiController\AdminLoginVerifi
-
+/**
+ * 首页
+ */
 class Index extends Controller
 {
-    public function index()
+
+    /**
+     * [title 标题]
+     * @Effect
+     * @return [type] [description]
+     */
+    static function title()
     {
 
+        return[
+        'index'=>'首页显示',
+        'view'=>'测试二维码',
+
+        ];
+
+    }
+    
+    public function index()
+    {
         return $this->fetch();
 
     }
@@ -33,29 +51,6 @@ class Index extends Controller
         header('Content-Type: '.$qrCode->getContentType());
         echo $qrCode->writeString();
         exit;
-    }
-
-
-    /**
-     * [menu 菜单]
-     * @Effect
-     * @return [type] [description]
-     */
-    public function menu()
-    {
-        //头模板
-        $Menu = [  "code"=> 0,"msg"=>"获取数据成功"];
-
-        //一级菜单模板
-        $MenuDataTl = ["name"=>"SSR_manage","title"=>"SSR管理","icon"=> "layui-icon-component",'list'=>$data];//有二级菜单 的一级菜单
-
-        $StairDataTl =  ["name"=>"get","title"=> "授权","icon"=>"layui-icon-auz","jump"=>"system/get"];//一级
-
-        $StairDataTl = ["name"=>"security","title"=> "安全设置"];//二级无三级菜单
-
-
-        $Menu['data'] = '';
-
     }
 
 

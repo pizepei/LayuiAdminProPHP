@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-03-31 23:38:52
+ * @Last Modified time: 2018-04-03 09:59:07
  */
 namespace redis;
 
@@ -44,7 +44,7 @@ class RedisModel
             
 
         }catch(\Exception $e){
-            echo json_encode(['code'=>'L1001']);
+            echo json_encode(['code'=>1001]);
             exit;
         }
 
