@@ -1,0 +1,464 @@
+<title>菜单列表页</title>
+
+
+
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header">菜单列表页</div>
+        <div class="layui-card-body">
+        <button class="layui-btn"  onclick="menuadd('0','一级菜单')">
+          <i class="layui-icon">&#xe608;</i> 添加
+        </button>
+
+
+<script type="text/html" template lay-url="/menu/Menu/setList/ }}">
+
+
+
+              {{# layui.each(d.data,function(index,element){  }}
+
+
+          <table class="layui-table">
+            <colgroup>
+              <col width="30">
+              <col width="30">
+              <col width="30">
+              <col width="100">
+              <col width="100">
+              <col width="100">
+              <col width="100">
+              <col width="90">
+              
+            </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="3" style='text-align: center;'>标题与等级</th>
+                  <th  rowspan="2" style='text-align: center;'>名称</th>
+                  <th  rowspan="2" style='text-align: center;'>图标</th>
+                  <th  rowspan="2" style='text-align: center;'>排序</th>
+                  <th  rowspan="2" style='text-align: center;'>状态</th>
+
+                  <th  rowspan="2" style='text-align: center;'>操作</th>
+
+                </tr>
+                <tr>
+                  <th style='text-align: center;'>一</th>
+                  <th style='text-align: center;'>二</th>
+                  <th style='text-align: center;'>三</th>
+                </tr>
+              </thead>
+            <tbody>
+
+               <tr>
+
+               <!-- <tr style='background-color: #FFB800;'> -->
+                <td>{{element.title}}</td>
+                <td></td>
+                <td></td>
+                <td>{{element.name}}</td>
+                <td><i class="layui-icon {{element.icon}}"></i></td>
+                <td>{{element.sort}}</td>
+                <td>
+                    {{# if(element.status == 1){  }}
+                        <span style="color: #red;">锁定</span>
+                    {{# }else{ }}
+                        <span style="color: #5FB878;">正常</span>
+                    {{# } }}
+                </td>
+
+
+
+                <td>
+                    <div class="layui-btn-group">
+                      <button class="layui-btn layui-btn-sm" onclick="menuadd({{element.id}},'{{element.title}}')">
+                        <i class="layui-icon">&#xe654;</i>
+                      </button>
+
+                        <button class="layui-btn layui-btn-sm" onclick="menuedit({{element.id}},'{{element.title}}',{{element.sort}},'{{element.icon}}','{{element.name}}','{{element.status}}')">
+
+                        <i class="layui-icon">&#xe642;</i>
+                      </button>
+                      <button class="layui-btn layui-btn-sm cctvbbc"   onclick="menudelete({{element.id}})" >
+                        <i class="layui-icon">&#xe640;</i>
+                      </button>
+                    </div>
+                </td>
+
+              </tr>               
+                    {{# layui.each(element.list,function(index,Second){  }}   
+                           <tr>
+                            <td></td>
+                            <td>{{Second.title}}</td>
+                            <td></td>
+                            <td>{{Second.name}}</td>
+                            <td><i class="layui-icon {{Second.icon}}"></i></td>
+                            <td>{{Second.sort}}</td>
+                            <td>
+                                {{# if(Second.status == 1){  }}
+
+                                    <span style="color: #red;">锁定</span>
+
+                                {{# }else{ }}
+
+                                    <span style="color: #5FB878;">正常</span>
+
+                                {{# } }}
+                            </td>
+                            <td>
+                                <div class="layui-btn-group">
+                                    <button class="layui-btn layui-btn-sm" onclick="menuadd({{Second.id}},'{{Second.title}}')">
+                                  
+                                    <i class="layui-icon">&#xe654;</i>
+                                  </button>
+                                  <button class="layui-btn layui-btn-sm" onclick="menuedit({{Second.id}},'{{Second.title}}',{{Second.sort}},'{{Second.icon}}','{{Second.name}}','{{Second.status}}')">
+                                    <i class="layui-icon">&#xe642;</i>
+                                  </button>
+                                  <button class="layui-btn layui-btn-sm cctvbbc"  onclick="menudelete({{Second.id}})" >
+                                    <i class="layui-icon">&#xe640;</i>
+                                  </button>
+                                </div>
+                            </td>
+
+                          </tr>
+
+                          {{# layui.each(Second.list,function(index,Three){  }}   
+                               <tr>
+                                <td></td>
+                                <td></td>
+                                <td>{{Three.title}}</td>
+                                <td>{{Three.name}}</td>
+                                <td><i class="layui-icon {{Three.icon}}"></i></td>
+                                <td>{{Three.sort}}</td>
+                                <td>
+                                    {{# if(Three.status == 1){  }}
+
+                                        <span style="color: #red;">锁定</span>
+
+                                    {{# }else{ }}
+
+                                        <span style="color: #5FB878;">正常</span>
+
+                                    {{# } }}
+                                </td>
+
+
+                                <td>
+                                    <div class="layui-btn-group">
+                                       <button class="layui-btn layui-btn-sm" onclick="menuedit({{Three.id}},'{{Three.title}}',{{Three.sort}},'{{Three.icon}}','{{Three.name}}','{{Three.status}}')">
+                                        <i class="layui-icon">&#xe642;</i>
+                                      </button>
+                                        <button class="layui-btn layui-btn-sm cctvbbc"   onclick="menudelete({{Three.id}})" >
+                                        <i class="layui-icon">&#xe640;</i>
+                                      </button>
+                                    </div>
+                                </td>
+                              </tr>
+
+                          {{# });   }}
+
+                    {{# });   }}
+            </tbody>
+          </table>
+              {{# });   }}
+
+
+
+
+</script>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+<script type="text/html" id="operatec">
+
+<form class="layui-form" action="">
+
+      <div class="layui-card">
+        <div class="layui-card-header">向：【{{d.title}}】下添加菜单</div>
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-col-md12">
+
+
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">name[路由]</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">英文字母[html模板名称]</div>
+
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+              <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input">
+              <!-- <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div> -->
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-inline">
+              <input type="text" name="icon" lay-verify="required" autocomplete="off" class="layui-input">
+              <!-- <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div> -->
+            </div>
+
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+              <input type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div>
+            </div>
+
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">父ID</label>
+            <div class="layui-input-inline">
+              <input type="text" name="id" lay-verify="number" autocomplete="off" class="layui-input" value="{{d.id}}">
+            </div>
+
+          </div>
+
+        </div>
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemooperatec">立即提交</button>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+</form>
+
+</script>
+
+
+<script type="text/html" id="menuedit">
+
+<form class="layui-form" action="">
+      <div class="layui-card">
+        <div class="layui-card-header">修改：【{{d.title}}】菜单</div>
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-col-md12">
+
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">name[路由]</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.name}}">
+                <div class="layui-form-mid layui-word-aux">英文字母[html模板名称]</div>
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">标题</label>
+              <div class="layui-input-inline">
+                <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.title}}">
+                <!-- <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div> -->
+              </div>
+            </div>
+
+            <div class="layui-inline">
+              <label class="layui-form-label">图标</label>
+              <div class="layui-input-inline">
+                <input type="text" name="icon" lay-verify="required" autocomplete="off" class="layui-input" value="{{d.icon}}">
+                <!-- <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div> -->
+              </div>
+
+            </div>
+
+            <div class="layui-inline">
+              <label class="layui-form-label">排序</label>
+              <div class="layui-input-inline">
+                <input type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input" value="{{d.sort}}">
+                <div class="layui-form-mid layui-word-aux">排序数字越大排序靠前</div>
+              </div>
+            </div>
+
+            <div class="layui-inline">
+              <label class="layui-form-label">状态</label>
+              <div class="layui-input-inline">
+                <input type="checkbox" name="status" title="锁定" {{# if(d.status == 1){var cchecked = 'checked'  }}} {{cchecked}}>
+                <div class="layui-form-mid layui-word-aux">锁定后不被显示</div>
+              </div>
+            </div>
+
+            <div class="layui-inline">
+              <label class="layui-form-label">ID</label>
+              <div class="layui-input-inline">
+                <input type="text" name="id" lay-verify="number" autocomplete="off" class="layui-input" value="{{d.id}}">
+              </div>
+
+            </div>
+          </div>
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+</form>
+
+</script>
+
+
+<script>
+
+layui.use(['admin','form'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,form = layui.form
+  ,element = layui.element
+  ,router = layui.router();
+
+
+  //监听提交   修改
+  form.on('submit(formDemo)', function(data){
+
+      admin.req({
+        url: '/menu/Menu/updataMenu' 
+        ,data: {
+          name:data.field.name
+          ,status:data.field.status
+          ,id:data.field.id
+          ,sort:data.field.sort
+          ,icon:data.field.icon
+          ,title:data.field.title
+          ,icon:data.field.icon
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+
+    admin.events.refresh()
+    // layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+
+
+
+  //监听提交  添加
+  form.on('submit(formDemooperatec)', function(data){
+
+      //这里一般是发送修改的Ajax请求
+      admin.req({
+        url: '/menu/Menu/addMenu' //实际使用请改成服务端真实接口
+        ,data: {
+          name:data.field.name
+          ,id:data.field.id
+          ,sort:data.field.sort
+          ,icon:data.field.icon
+          ,title:data.field.title
+          ,icon:data.field.icon
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+    admin.events.refresh()
+    // layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+
+
+
+});
+
+// 删除
+
+
+
+function  menudelete(id)
+{
+
+layui.use(['admin'], function(){
+    var $ = layui.$
+    ,admin = layui.admin;
+      admin.req({
+        url: '/menu/Menu/deleteMenu' 
+        ,data: {
+          id:id
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+    admin.events.refresh()
+})
+
+
+}
+
+
+// 添加
+function menuadd(id,title){
+    Data = { "id": id, "title": title }
+        var $ = layui.$
+        bbc = $('#operatec').html();
+    layui.use('laytpl', function(){
+        var laytpl = layui.laytpl
+        ,form = layui.form;
+        laytpl(bbc).render(Data, function(html){
+          bbchtml = html;
+        });
+        layer.open({
+        type: 1,
+        skin: 'layui-layer-rim',
+        area: ['440px', '550px'],
+        content: bbchtml
+        });
+    })
+}
+// 修改
+function menuedit(id,title,sort,icon,name,status){
+    Data = { "id": id, "title": title , "sort": sort, "icon": icon, "name": name, "status":status}
+        var $ = layui.$
+        bbc = $('#menuedit').html();
+    layui.use('laytpl', function(){
+        
+        var laytpl = layui.laytpl,form = layui.form;;
+
+        laytpl(bbc).render(Data, function(html){
+          bbchtml = html;
+        });
+        layer.open({
+        type: 1,
+        skin: 'layui-layer-rim',
+        area: ['440px', '550px'],
+        content: bbchtml
+        });
+        form.render(); //更新全部
+
+    })
+}
+
+
+</script>

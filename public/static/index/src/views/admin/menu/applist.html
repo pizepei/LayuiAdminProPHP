@@ -1,0 +1,157 @@
+<title>用户菜单列表页</title>
+
+
+
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header">菜单列表页</div>
+        <div class="layui-card-body">
+
+
+
+
+
+
+
+<script type="text/html" template lay-url="/menu/Menu/setAppList/ }}">
+
+
+
+              {{# layui.each(d.data,function(index,element){  }}
+
+
+          <table class="layui-table">
+            <colgroup>
+              <col width="30">
+              <col width="30">
+              <col width="30">
+              <col width="100">
+              <col width="100">
+              <col width="100">
+              <col width="90">
+
+              
+            </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="3" style='text-align: center;'>标题与等级</th>
+                  <th  rowspan="2" style='text-align: center;'>名称</th>
+                  <th  rowspan="2" style='text-align: center;'>图标</th>
+                  <th  rowspan="2" style='text-align: center;'>排序</th>
+                  <th  rowspan="2" style='text-align: center;'>操作</th>
+
+                </tr>
+                <tr>
+                  <th style='text-align: center;'>一</th>
+                  <th style='text-align: center;'>二</th>
+                  <th style='text-align: center;'>三</th>
+                </tr>
+              </thead>
+            <tbody>
+
+
+
+
+               <tr>
+
+               <!-- <tr style='background-color: #FFB800;'> -->
+                <td>{{element.title}}</td>
+                <td></td>
+                <td></td>
+                <td>{{element.name}}</td>
+                <td><i class="layui-icon {{element.icon}}"></i></td>
+                <td>{{element.sort}}</td>
+                <td>
+                    <div class="layui-btn-group">
+                      <button class="layui-btn layui-btn-sm">
+                        <i class="layui-icon">&#xe654;</i>
+                      </button>
+                      <button class="layui-btn layui-btn-sm">
+                        <i class="layui-icon">&#xe642;</i>
+                      </button>
+                      <button class="layui-btn layui-btn-sm">
+                        <i class="layui-icon">&#xe640;</i>
+                      </button>
+                    </div>
+                </td>
+
+              </tr>               
+                    {{# layui.each(element.list,function(index,Second){  }}   
+                           <tr>
+                            <td></td>
+                            <td>{{Second.title}}</td>
+                            <td></td>
+                            <td>{{Second.name}}</td>
+                            <td><i class="layui-icon {{element.icon}}"></i></td>
+                            <td>{{Second.sort}}</td>
+                            <td>
+                                <div class="layui-btn-group">
+                                  <button class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe654;</i>
+                                  </button>
+                                  <button class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe642;</i>
+                                  </button>
+                                  <button class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe640;</i>
+                                  </button>
+                                </div>
+                            </td>
+
+                          </tr>
+
+                          {{# layui.each(Second.list,function(index,Three){  }}   
+                               <tr>
+                                <td></td>
+                                <td></td>
+                                <td>{{Three.title}}</td>
+                                <td>{{Three.name}}</td>
+                                <td><i class="layui-icon {{element.icon}}"></i></td>
+                                <td>{{Three.sort}}</td>
+                                <td>
+                                    <div class="layui-btn-group">
+                                      <button class="layui-btn layui-btn-sm">
+                                        <i class="layui-icon">&#xe642;</i>
+                                      </button>
+                                      <button class="layui-btn layui-btn-sm">
+                                        <i class="layui-icon">&#xe640;</i>
+                                      </button>
+                                    </div>
+                                </td>
+                              </tr>
+
+                          {{# });   }}
+
+                    {{# });   }}
+            </tbody>
+          </table>
+              {{# });   }}
+
+
+
+
+</script>
+
+
+        </div>
+      </div>
+    </div>
+
+<script>
+
+
+
+layui.use(['admin'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,element = layui.element
+  ,router = layui.router();
+
+  element.render('collapse');
+  
+  //监听折叠
+  element.on('collapse(component-panel)', function(data){
+    layer.msg('展开状态：'+ data.show);
+  });
+});
+</script>

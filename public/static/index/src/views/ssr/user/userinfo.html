@@ -1,0 +1,410 @@
+<title>SSR用户详情</title>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>SSR</cite></a>
+    <a><cite>SSR用户列表</cite></a>
+    <a><cite>SSR用户详情</cite></a>
+  </div>
+</div>
+
+<style>
+/* 这段样式只是用于演示 */
+
+</style>
+
+<!-- <div class="layui-fluid"> -->
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md4">
+
+
+      <div class="layui-card">
+        <div class="layui-card-header">版本信息</div>
+        <div class="layui-card-body layui-text">
+          <table class="layui-table">
+            <colgroup>
+              <col width="100">
+              <col>
+            </colgroup>
+            <tbody style="word-wrap: break-word; word-break: normal; ">
+                <!-- 订单获取用户详情 -->
+              <script type="text/html" template lay-url="/ssr/Suser/getUserData/?uid={{layui.router().search.uid }}">
+              {{#  d = d.data}}
+                  <tr>
+                    <td width="45%">用户头像</td>
+                    <td>
+                        <img src="{{d.headimgurl}}" alt="">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>用户唯一id</td>
+                    <td>
+                        {{d.uid}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>用户昵称</td>
+                    <td>
+                        {{d.user_name}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>用户邮箱</td>
+                    <td>
+                        {{d.email}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>ssr密码</td>
+                    <td>
+                        {{d.passwd}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>上次使用时间</td>
+                    <td>
+                        {{d.t}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>上传流量 G</td>
+                    <td>
+                        {{d.u}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>下载流量 G</td>
+                    <td>
+                        {{d.d}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>套餐</td>
+                    <td>
+                        {{d.plan}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>总流量</td>
+                    <td>
+                        {{d.transfer_enable}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>端口</td>
+                    <td>
+                        {{d.port}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>账号状态</td>
+                    <td>
+                        {{#if(d.enable  == 0){   }}
+                            <span style="color: #c00;">禁用</span>
+                        {{# }else{ }}
+                            <span style="color: #5FB878;">正常</span>
+                        {{# }  }}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>邀请人uid</td>
+                    <td>
+                        {{d.ref_by}}
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>账号有效期</td>
+                    <td>
+
+                      {{# if(d.reservation_indent_finish < time1 && d.enable ==1 && d.reservation_indent_finish != ''){       }}
+
+                        <span style="color: #c00;"><b>异常</b>{{ d.reservation_indent_finish }}</span>
+
+                      {{#}else if(d.reservation_indent_finish < time1){ }}
+                        <span style="color: #c00;"><b>{{ d.reservation_indent_finish }}</b></span>
+                          
+                      {{#}else{}}
+                     <span style="color: #5FB878;">{{ d.reservation_indent_finish }}</span>
+                      {{#}}}
+
+                    </td>
+                  </tr>
+
+
+
+                  <tr>
+                    <td>流量超标预提醒</td>
+                    <td>
+                        {{# if(d.mail_flow_parameter == 1){ var parameter = '经提醒'}else{ var parameter = '没有提醒' }       }}
+                        {{parameter}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>上次流量超标发送时间</td>
+                    <td>
+                        {{getLocalTime(d.mail_flow_time)}}
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>流量已经超标提醒</td>
+                    <td>
+                        {{# if(d.mail_flow_proof == 1){ var flow_proof = '经提醒'}else{ var flow_proof = '没有提醒' }       }}
+                        {{flow_proof}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>账号过期上次发送时间</td>
+                    <td>
+                        {{d.mail_flow_time}}
+                        {{getLocalTime(d.mail_flow_time)}}
+
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>账号已经过期提醒</td>
+                    <td>
+                        {{# if(d.mail_date_proof == 1){ var proof = '经提醒'}else{ var proof = '没有提醒' }       }}
+
+                        {{proof}}
+
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td>账号过期预提醒时间</td>
+                    <td>
+                        {{getLocalTime(d.mail_date_parameter)}}
+                    </td>
+                  </tr>
+
+
+
+                  <tr>
+                    <td>rss订阅地址</td>
+                    <td>
+                        {{d.key_url}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>微信id</td>
+                    <td>
+                        {{d.openid}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>授权时间</td>
+                    <td>
+                        {{getLocalTime(d.add_wx_time)}}
+                        
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>微信用户昵称</td>
+                    <td>
+                        {{d.nickname}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>性别</td>
+                    <td>
+                            {{# var sexd = '未知'}}
+                            {{# if(d.sex == 0) {var sexd ='未知'} }}
+
+                            {{# if(d.sex == 1) {var sexd ='男性'} }}
+
+                            {{# if(d.sex == 2) {var sexd ='女性'} }}
+                            {{sexd}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>省份</td>
+                    <td>
+                        {{d.province}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>城市</td>
+                    <td>
+                        {{d.city}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>国家</td>
+                    <td>
+                        {{d.country}}
+                    </td>
+                  </tr>
+
+
+
+
+              </script>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="layui-col-md8">
+
+          <div class="layui-card">
+            <div class="layui-tab layui-tab-brief layadmin-latestData">
+              <ul class="layui-tab-title">
+                <li class="layui-this">相关订单</li>
+                <li>相关日志</li>
+
+              </ul>
+              <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                  <div class="demoTable">
+                    搜索：订单号
+                    <div class="layui-inline">
+                      <input class="layui-input" name="id" id="seekid" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="reload" id="seekbut">搜索</button>
+
+                  </div>
+
+                  <table id="LAY-ssr-userinfo"  lay-filter="topSearchtest"></table>
+                </div>
+                
+                <div class="layui-tab-item">
+                  <table id="LAY-index-topCard"></table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+    </div>
+  </div>
+<!-- </div> -->
+
+<script type="text/html" id="goods_json">
+
+    {{# layui.each(d.goods_json,function(index,element){  }}
+        【{{element.name}}|{{element.manner_name}}|{{element.size_type}}|{{element.price}}】
+    {{# });   }}
+
+</script>
+<script type="text/html" id="order">
+    {{# if(d.order == 1) { var order = '未支付'}     }}
+
+    {{# if(d.order == 2) { var order = '已支付'}     }}
+
+    {{order}}
+</script>
+
+
+<script type="text/html" id="add_time">
+    {{getLocalTime(d.add_time) }}
+</script>
+
+
+<script type="text/html" id="pay_time">
+    {{getLocalTime(d.pay_time) }}
+</script>
+
+<script>
+
+function getLocalTime(nS) { 
+return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '); 
+} 
+
+
+  Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+} 
+time1 = new Date().Format("yyyy-MM-dd");
+time2 = new Date().Format("yyyy-MM-dd HH:mm:ss");
+
+
+  //用户列表
+  layui.use(['table','form'], function(){
+    var $ = layui.$
+    ,table = layui.table
+    ,element = layui.element
+    ,form = layui.form
+    ,admin = layui.admin;
+    //登录信息
+    table.render({
+      elem: '#LAY-ssr-userinfo'
+      ,url: '/ssr/Suser/getIndent' //模拟接口
+      ,page: true
+      ,where: {
+        access_token: layui.data('layuiAdmin').access_token
+        ,uid: layui.router().search.uid
+      }
+      ,cols: [[
+        // {type: 'numbers', fixed: 'left'}
+        { field: 'id', title: 'id', minWidth: 60,fixed:'left',width:60}
+        ,{field: 'ordernumber', title: '订单号', minWidth: 100, sort: true,width:250}
+        ,{field: 'goods_json', title: '商品信息', minWidth: 150,width:200 ,templet: '#goods_json', unresize: true}
+
+        ,{field: 'order', title: '订单状态', sort: true, minWidth: 120,width:120 ,templet: '#order', unresize: true }
+        ,{field: 'amount', title: '订单金额', minWidth: 80,width:100}
+        ,{field: 'add_time', title: '订单创建时间', minWidth: 40,width:100 ,templet: '#add_time', unresize: true}
+        ,{field: 'pay_type', title: '支付类型', minWidth: 40,width:100 }
+        ,{field: 'pay_time', title: '支付时间', minWidth: 160, sort: true,width:160,templet: '#pay_time', unresize: true}
+
+        ,{field: 'to', title: '留言', minWidth: 40,width:100 }
+        ,{field: 'contact_name', title: '内容', minWidth: 55,width:70 }
+        // ,{fixed: 'right', width:80, align:'center', toolbar: '#operate'}
+      ]]
+      ,skin: 'line'
+      ,id: 'testReload'
+    });
+
+
+  //搜索
+  $('#seekbut').on('click', function(){
+
+    table.reload('testReload',{
+      where: {
+        whe: $('#seekid').val(),
+        //…
+      }
+      ,page: {
+        curr: 1 //重新从第 1 页开始
+      }
+    });
+
+  });
+});
+
+
+</script>
+

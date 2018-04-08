@@ -1,0 +1,207 @@
+<title>SSR用户详情</title>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>系统后台管理</cite></a>
+    <a><cite>权限管理</cite></a>
+    <a><cite>用户组</cite></a>
+  </div>
+</div>
+
+<!-- <div class="layui-fluid"> -->
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+
+
+
+          <div class="layui-card">
+            <div class="layui-tab layui-tab-brief layadmin-latestData">
+              <ul class="layui-tab-title">
+                <li class="layui-this">全部用户</li>
+
+
+              </ul>
+              <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+<!--                   <div class="demoTable">
+                    搜索：邮箱
+                    <div class="layui-inline">
+                      <input class="layui-input" name="id" id="seekid" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="reload" id="seekbut">搜索</button>
+
+                  </div> -->
+                <button class="layui-btn"  onclick="menuadd()">
+                  <i class="layui-icon">&#xe608;</i> 添加
+                </button>
+                  <table id="LAY-admin-autority-role"  lay-filter="topSearchtest"></table>
+                </div>
+                
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+      </div>
+    </div>
+    
+
+    
+  </div>
+<!-- </div> -->
+<!-- 账户状态 -->
+<script type="text/html" id="switchTpl">
+  <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="operate">
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">菜单权限</a>
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">功能权限</a>
+
+</script>
+<script type="text/html" id="operatecRole">
+
+<form class="layui-form" action="">
+
+      <div class="layui-card">
+        <div class="layui-card-header">添加权限组</div>
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-col-md12">
+
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">组名</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">权限组名</div>
+
+            </div>
+          </div>
+
+        </div>
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemooperatec">立即提交</button>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+</form>
+
+</script>
+
+<script>
+
+  //用户列表
+  layui.use(['table','form'], function(){
+    var $ = layui.$
+    ,table = layui.table
+    ,form = layui.form
+    ,admin = layui.admin;
+    //登录信息
+    table.render({
+      elem: '#LAY-admin-autority-role'
+      ,url: '/authority/Role/getList' //模拟接口
+      ,page: true
+      ,where: {
+        access_token: layui.data('layuiAdmin').access_token
+      }
+      ,cols: [[
+        // {type: 'numbers', fixed: 'left'}
+        { field: 'id', title: 'id', minWidth: 50, sort: true,fixed:'left',width:50}
+        ,{field: 'name', title: '名称', minWidth: 200, sort: true,width:200}
+        ,{field: 'status', title: '状态', minWidth: 120,width:120 ,templet: '#switchTpl', unresize: true}
+        ,{field: 'create_time', title: '创建时间', minWidth: 200,width:250 }
+        ,{field: 'update_time', title: '更新时间', minWidth: 200,width:250 }
+        ,{fixed: 'right', width:300, align:'center', toolbar: '#operate'}
+      ]]
+      ,skin: 'line'
+      ,id: 'testReload'
+    });
+  //监听性别操作
+  form.on('switch(enableDemo)', function(obj){
+    id = this.value;
+    type = obj.elem.checked;
+    admin.req({
+      url: '/authority/Role/updataStatus' 
+      ,data: {
+        id:id,
+        type:type,
+      }
+      ,done: function(res){        
+        layer.msg('操作成功', {
+          offset: '30px'
+          ,icon: 1
+          ,time: 3000
+        });
+      }
+    });
+
+  });
+
+
+  //监听提交  添加
+  form.on('submit(formDemooperatec)', function(data){
+
+      //这里一般是发送修改的Ajax请求
+      admin.req({
+        url: '/authority/Role/addRole' //实际使用请改成服务端真实接口
+        ,data: {
+          name:data.field.name
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+    admin.events.refresh()
+    return false;
+  });
+
+
+
+});
+
+// 添加
+function menuadd(){
+    Data = '';
+        var $ = layui.$
+        bbc = $('#operatecRole').html();
+    layui.use('laytpl', function(){
+        var laytpl = layui.laytpl
+        ,form = layui.form;
+
+        layer.open({
+        type: 1,
+        skin: 'layui-layer-rim',
+        area: ['440px', '300px'],
+        content: bbc
+        });
+    })
+}
+
+
+
+
+// layui.use('ssr/ssruserlist', layui.factory('ssr/ssruserlist'));
+</script>
+
+
+

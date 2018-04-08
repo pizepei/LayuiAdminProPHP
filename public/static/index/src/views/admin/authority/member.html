@@ -1,0 +1,300 @@
+<title>用户组成员</title>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>系统后台管理</cite></a>
+    <a><cite>权限管理</cite></a>
+    <a><cite>用户组成员</cite></a>
+  </div>
+</div>
+
+<!-- <div class="layui-fluid"> -->
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+
+
+
+          <div class="layui-card">
+            <div class="layui-tab layui-tab-brief layadmin-latestData">
+              <ul class="layui-tab-title">
+                <li class="layui-this">全部用户</li>
+              </ul>
+              <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                  <div class="demoTable">
+                    搜索：邮箱
+                    <div class="layui-inline">
+                      <input class="layui-input" name="id" id="seekidmember" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="reload" id="seekbutmember">搜索</button>
+                    <button class="layui-btn"  onclick="memberadd()">
+                      <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
+                  </div>
+                  <table id="LAY-admin-autority-member"  lay-filter="topSearchtest"></table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+<!-- </div> -->
+<!-- 账户状态 -->
+<script type="text/html" id="switchTpl">
+  <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="operate">
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">信息编辑</a>
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">设置权限组</a>
+</script>
+<script type="text/html" id="operatecmember">
+
+<form class="layui-form" action="">
+
+      <div class="layui-card">
+        <div class="layui-card-header">添加管理员</div>
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-col-md12">
+
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">昵称</div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">手机号码</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="email" lay-verify="required|email" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">邮箱</div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="email" lay-verify="required|email" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">邮箱</div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+              <input type="password" name="password" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">密码</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">确认密码</label>
+            <div class="layui-input-inline">
+              <input type="password" name="password1" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">确认密码</div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">套餐</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="combo" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">套餐</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">用户组</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="user_group" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">权限组</div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">用户余额</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="balance" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">用户余额</div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">用户积分余额</label>
+            <div class="layui-input-inline">
+              <input type="tel" name="integral" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-form-mid layui-word-aux">用户积分余额</div>
+            </div>
+          </div>
+        </div>
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemooperatec">立即提交</button>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+</form>
+
+</script>
+
+<script>
+
+  //用户列表
+  layui.use(['table','form'], function(){
+    var $ = layui.$
+    ,table = layui.table
+    ,form = layui.form
+    ,admin = layui.admin;
+    //登录信息
+    table.render({
+      elem: '#LAY-admin-autority-member'
+      ,url: '/authority/Mainuser/getList' //模拟接口
+      ,page: true
+      ,where: {
+        access_token: layui.data('layuiAdmin').access_token
+      }
+      ,cols: [[
+        // {type: 'numbers', fixed: 'left'}
+        { field: 'id', title: 'id', minWidth: 50, sort: true,fixed:'left',width:50}
+        ,{field: 'name', title: '昵称', minWidth: 160, sort: true,width:160}
+        ,{field: 'login_name', title: '登录名', minWidth: 160,width:160 }
+        ,{field: 'phone', title: '手机号', minWidth: 160,width:160 }
+        ,{field: 'email', title: '电子邮箱', minWidth: 160,width:180 }
+        ,{field: 'login_error_count', title: '登录错误数', minWidth: 100,width:100 }
+        ,{field: 'login_error_count_time', title: '上次错误时间', minWidth: 160,width:160 }
+        ,{field: 'combo', title: '套餐', minWidth: 160,width:160 }
+        ,{field: 'grade', title: '会员等级', minWidth: 160,width:160 }
+        ,{field: 'user_group', title: '用户组', minWidth: 130,width:150 }
+        ,{field: 'balance', title: '用户余额', minWidth: 150,width:160 }
+        ,{field: 'integral', title: '用户积分余额', minWidth: 130,width:160 }
+        ,{field: 'register_way', title: '注册方式', minWidth: 100,width:100 }
+        ,{field: 'status', title: '状态', minWidth: 100,width:100 ,templet: '#switchTpl', unresize: true}
+        ,{field: 'create_time', title: '创建时间', minWidth: 160,width:160 }
+        ,{fixed: 'right', width:175, align:'center', toolbar: '#operate'}
+      ]]
+      ,skin: 'line'
+      ,id: 'Mainuser_getList'
+    });
+  //监听性别操作
+  form.on('switch(enableDemo)', function(obj){
+    id = this.value;
+    type = obj.elem.checked;
+    admin.req({
+      url: '/authority/Mainuser/updataStatus' 
+      ,data: {
+        id:id,
+        type:type,
+      }
+      ,done: function(res){        
+        layer.msg('操作成功', {
+          offset: '30px'
+          ,icon: 1
+          ,time: 3000
+        });
+      }
+    });
+
+  });
+
+
+  //监听提交  添加
+  form.on('submit(formDemooperatec)', function(data){
+
+      //这里一般是发送修改的Ajax请求
+      admin.req({
+        url: '/authority/Role/addRole' //实际使用请改成服务端真实接口
+        ,data: {
+          name:data.field.name
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+    admin.events.refresh()
+    return false;
+  });
+
+  //搜索
+  $('#seekbutmember').on('click', function(){
+
+    table.reload('Mainuser_getList',{
+      where: {
+        whe: $('#seekidmember').val(),
+        //…
+      }
+      ,page: {
+        curr: 1 //重新从第 1 页开始
+      }
+    });
+  });
+
+
+});
+
+// 添加
+function memberadd(){
+    Data = '';
+        var $ = layui.$
+        bbc = $('#operatecmember').html();
+    layui.use('laytpl', function(){
+        var laytpl = layui.laytpl
+        ,form = layui.form;
+
+        layer.open({
+        type: 1,
+        skin: 'layui-layer-rim',
+        area: ['450px', '600px'],
+        content: bbc
+        });
+    })
+}
+
+
+
+// layui.use('ssr/ssruserlist', layui.factory('ssr/ssruserlist'));
+</script>
+
+
+
