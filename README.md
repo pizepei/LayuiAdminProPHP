@@ -32,7 +32,9 @@ www  WEB部署目录（或者子目录）
 │  ├─static        公共资源
 │  │  ├─index      Layuiadmin 资源文件
 ├─extend          主要功能类目录
-│  ├─custom             获取公共信息来
+│  ├─console            think 命令行
+│  │  ├─test.php        think 指令类示例
+│  ├─custom             获取公共信息
 │  │  ├─TerminalInfo.php      获取web客户端信息类（包括ip信息）
 │  ├─heillog        日志系列
 │  │  ├─ErrorLog.php    系统日志写入类
@@ -89,8 +91,27 @@ www  WEB部署目录（或者子目录）
    + 所以MVC所有业务逻辑与数据操作都放在模型（M）中，控制器（C）中不再有任何业务逻辑也不要在控制器中进行db操作，控制器只做请求的转发与权限控制。
   API数据规范：控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
  #### 日志处理：
-   + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
-   + 建议尽可能的对用户、管理员的所有操作进行记录。
+   + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
+   + 建议尽可能的对用户、管理员的所有操作进行记录。
+#### think 命令行工具：
++ 1、需要在下面根目录下的think 文件 中配置
+~~~
+// 定义项目路径
+define('APP_PATH', './admin/');
+// 加载框架命令行引导文件
+require './thinkphp/console.php';
+~~~
++ 2、在应用根目录下的command.php文件中配置指令类的引用地址建议统一放在\extend\console目录下(不需要.php)
+~~~
+// 定义项目路径
+return [
+    '\extend\console\test',
+];
+~~~
++ 3、可在\extend\console目录下增加创建一个指令类test.php
++ 4、think指令可配合Linux 的crontab 做计划任务（比如再配合Redis 队列 异步处理订单、支付状态等）提高系统的高可用性。
++ 目前这里只有一个\extend\console目录一个test.php指令类做简单示例。   
+   
  ## 开始构建：
  + 1、安装好ThinkPHP5.0。
  + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
