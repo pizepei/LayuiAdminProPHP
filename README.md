@@ -60,6 +60,8 @@ www  WEB部署目录（或者子目录）
 ├─config.js        LayAdmin的配置
 注意：这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（可在应用的config.php中修改）
 ~~~
+ ## 文档：
+ + [更新日志](https://github.com/pizepei/LayuiAdminProPHP/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)  
  ## 配置简介：
  + 应用的配置都在应用目录下的config.php中，具体的直接打开config.php文件就可以了解。
  + LayAdmin的配置在根目录下config.js中
@@ -121,3 +123,5 @@ return [
  + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
  + 3、使用本项目代码在根目录进行粘贴替换。
  + 4、根据自己项目的需求对应用目录下config.php进行配置修改。
+
+ 
