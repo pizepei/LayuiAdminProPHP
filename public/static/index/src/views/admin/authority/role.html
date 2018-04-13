@@ -1,4 +1,4 @@
-<title>SSR用户详情</title>
+<title>用户组</title>
 
 <div class="layui-card layadmin-header">
   <div class="layui-breadcrumb" lay-filter="breadcrumb">
@@ -20,9 +20,7 @@
           <div class="layui-card">
             <div class="layui-tab layui-tab-brief layadmin-latestData">
               <ul class="layui-tab-title">
-                <li class="layui-this">全部用户</li>
-
-
+                <li class="layui-this">用户组</li>
               </ul>
               <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -40,9 +38,6 @@
                   <table id="LAY-admin-autority-role"  lay-filter="topSearchtest"></table>
                 </div>
                 
-
-
-
               </div>
             </div>
           </div>
@@ -60,13 +55,13 @@
   </div>
 <!-- </div> -->
 <!-- 账户状态 -->
-<script type="text/html" id="switchTpl">
+<script type="text/html" id="switchTplrole">
   <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
 </script>
 
-<script type="text/html" id="operate">
-  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">菜单权限</a>
-  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">功能权限</a>
+<script type="text/html" id="operaterole">
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/admin/authority/menurole/id={{d.id}}/type=admin">菜单权限</a>
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/admin/authority/menurole/id={{d.id}}/type=admin">功能权限</a>
 
 </script>
 <script type="text/html" id="operatecRole">
@@ -124,10 +119,10 @@
         // {type: 'numbers', fixed: 'left'}
         { field: 'id', title: 'id', minWidth: 50, sort: true,fixed:'left',width:50}
         ,{field: 'name', title: '名称', minWidth: 200, sort: true,width:200}
-        ,{field: 'status', title: '状态', minWidth: 120,width:120 ,templet: '#switchTpl', unresize: true}
+        ,{field: 'status', title: '状态', minWidth: 120,width:120 ,templet: '#switchTplrole', unresize: true}
         ,{field: 'create_time', title: '创建时间', minWidth: 200,width:250 }
         ,{field: 'update_time', title: '更新时间', minWidth: 200,width:250 }
-        ,{fixed: 'right', width:300, align:'center', toolbar: '#operate'}
+        ,{fixed: 'right', width:300, align:'center', toolbar: '#operaterole'}
       ]]
       ,skin: 'line'
       ,id: 'testReload'

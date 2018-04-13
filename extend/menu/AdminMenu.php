@@ -2,7 +2,7 @@
 namespace menu;
 use think\Model;
 use think\Cache;
-
+use authority\AdminMenuAccess;
 /**
  * 登录用户模型
  */
@@ -19,32 +19,39 @@ class AdminMenu extends Model {
     public static function  getMenu()
     {
 
+        //获取权限
+        $Access = AdminMenuAccess::getAccess();
+
         $AppMenu = new static();
+        // for ($i=0; $i <100 ; $i++) { 
+        //         $Access[]=$i;
+        //     # code...
+        // }
         //获取总数据
-        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->cache('AdminMenu_getMenu_Menu')->select();
+        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->cache('AdminMenu_getMenu_Menu',0,'nameMenu')->select();
         // 获取一级菜单并进行排序
-        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->cache('AdminMenu_getMenu_fatherMenu')->select();
+        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->cache('AdminMenu_getMenu_fatherMenu',0,'nameMenu')->select();
         $Menu =$Menu ->toArray();
         $fatherMenu =$fatherMenu ->toArray();
-
         $MenuData = array();
         foreach ($fatherMenu as $key => $value) {
                 //以一级菜单为基本 继续子菜单数据获取
-                $data = ['name'=>$value['name'],'title'=>$value['title'],'icon'=>$value['icon'],'list'=>self::plist($Menu,$value['id']),'sort'=>$value['sort']];
-                $MenuData[]= $data;
+                if(in_array($value['id'],$Access)){
+                    $data = ['name'=>$value['name'],'title'=>$value['title'],'icon'=>$value['icon'],'list'=>self::plist($Menu,$value['id'],$Access),'sort'=>$value['sort']];
+                    $MenuData[]= $data;
+                }
         }
         return $MenuData;
     }
-
-
-
     /**
      * [setMenu 后台修改获取菜单]
      * @Effect
      * @return [type] [description]
      */
-    public static function  setMenu()
+    public static function  setMenu($guid)
     {
+        //获取权限
+        $Access = AdminMenuAccess::getAccess($guid);
 
         $AppMenu = new static();
         //获取总数据
@@ -57,14 +64,12 @@ class AdminMenu extends Model {
         $MenuData = array();
         foreach ($fatherMenu as $key => $value) {
                 //以一级菜单为基本 继续子菜单数据获取
-                $data = ['name'=>$value['name'],'title'=>$value['title'],'icon'=>$value['icon'],'list'=>self::plist($Menu,$value['id']),'sort'=>$value['sort'],'id'=>$value['id'],'status'=>$value['status']];
+                $data = ['name'=>$value['name'],'title'=>$value['title'],'icon'=>$value['icon'],'list'=>self::plist($Menu,$value['id'],$Access,true),'sort'=>$value['sort'],'id'=>$value['id'],'status'=>$value['status'],'access'=>in_array($value['id'],$Access)?0:1];
+
                 $MenuData[]= $data;
         }
         return $MenuData;
     } 
-
-
-
     /**
      * [plist 获取子菜单]
      * @Effect
@@ -72,27 +77,33 @@ class AdminMenu extends Model {
      * @param  [type] $id   [description]
      * @return [type]       [description]
      */
-    public static function plist($Menu,$id){
+    public static function plist($Menu,$id,$Access=array(),$type=false){
         //获取下级k
         $seeklist = self::seeklist($Menu,$id);
         $MenuData = array();
         if($seeklist){
             foreach ($seeklist as $key => $value) {
-                $plist = self::plist($Menu,$Menu[$value]['id']);
-                if($plist){
-                    $Data = ['name'=>$Menu[$value]['name'],'title'=>$Menu[$value]['title'],'list'=>$plist,'sort'=>$Menu[$value]['sort'],'id'=>$Menu[$value]['id'],'status'=>$Menu[$value]['status']];
-                }else{
-                    $Data = ['name'=>$Menu[$value]['name'],'title'=>$Menu[$value]['title'],'sort'=>$Menu[$value]['sort'],'id'=>$Menu[$value]['id'],'status'=>$Menu[$value]['status']];
-                }
-                $MenuData[] = $Data;
-            }
+                //获取三级
+                if(in_array($Menu[$value]['id'],$Access) || $type){
 
+                    $plist = self::plist($Menu,$Menu[$value]['id'],$Access,$type);
+                    if($plist){
+                        //有
+                        $Data = ['name'=>$Menu[$value]['name'],'title'=>$Menu[$value]['title'],'list'=>$plist,'sort'=>$Menu[$value]['sort'],'id'=>$Menu[$value]['id'],'status'=>$Menu[$value]['status'],'access'=>in_array($Menu[$value]['id'],$Access)?0:1];
+                    }else{
+                        //没有
+                        $Data = ['name'=>$Menu[$value]['name'],'title'=>$Menu[$value]['title'],'sort'=>$Menu[$value]['sort'],'id'=>$Menu[$value]['id'],'status'=>$Menu[$value]['status'],'access'=>in_array($Menu[$value]['id'],$Access)?0:1];
+                    }
+                    $MenuData[] = $Data;
+                }
+            }
             //进行排序
             $sort = array_column($MenuData, 'sort');//获取对应的排序值 内置函数
             array_multisort($sort,SORT_DESC,$MenuData );//多维数组的排序
         }
         return $MenuData;
     }
+
 
     /**
      * [seeklist 获取当前菜单id下的只菜单相对$Menu的下标]
@@ -110,8 +121,6 @@ class AdminMenu extends Model {
                 $sort[]=$value['sort'];
             }
         }
-
-
         return $arr;
     }
 
@@ -223,8 +232,6 @@ class AdminMenu extends Model {
         }
         return ['code'=>1,'msg'=>'删除失败'];
     }
-
-
     /**
      * [saveCache 更新缓存]
      * @Effect
@@ -232,12 +239,8 @@ class AdminMenu extends Model {
      */
     public static function saveCache()
     {
-
         Cache::rm('AdminMenu_getMenu_Menu'); 
         Cache::rm('AdminMenu_getMenu_fatherMenu'); 
-
-
     }
-
 
 }

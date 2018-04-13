@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-03 10:57:45
+ * @Last Modified time: 2018-04-13 14:51:47
  */
 namespace VerifiController;
 use think\Controller;
@@ -20,7 +20,6 @@ class AdminLoginVerifi extends Controller
 
     public function __construct()
     {
-
         // $this->atups();
         // exit;
         // 检测php环境
@@ -30,6 +29,8 @@ class AdminLoginVerifi extends Controller
         $this->access_token = input('access_token');
         //JWT登录验证
         $this->VerifiDecodeJWT();
+        parent::__construct();
+
     }
     /**
      * [VerifiDecodeJWT JWT登录验证]

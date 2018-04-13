@@ -51,10 +51,18 @@
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
 </script>
-<script type="text/html" id="operate">
+<script type="text/html" id="member_operate">
   <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">信息编辑</a>
   <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">设置权限组</a>
 </script>
+
+<script type="text/html" id="member_user_group">
+    {{d.user_group.Group}}
+</script>
+
+
+
+
 <script type="text/html" id="operatecmember">
 
 <form class="layui-form" action="">
@@ -202,13 +210,13 @@
         ,{field: 'login_error_count_time', title: '上次错误时间', minWidth: 160,width:160 }
         ,{field: 'combo', title: '套餐', minWidth: 160,width:160 }
         ,{field: 'grade', title: '会员等级', minWidth: 160,width:160 }
-        ,{field: 'user_group', title: '用户组', minWidth: 130,width:150 }
+        ,{field: 'user_group', title: '用户组', minWidth: 130,width:150 ,templet: '#member_user_group',}
         ,{field: 'balance', title: '用户余额', minWidth: 150,width:160 }
         ,{field: 'integral', title: '用户积分余额', minWidth: 130,width:160 }
         ,{field: 'register_way', title: '注册方式', minWidth: 100,width:100 }
         ,{field: 'status', title: '状态', minWidth: 100,width:100 ,templet: '#switchTpl', unresize: true}
         ,{field: 'create_time', title: '创建时间', minWidth: 160,width:160 }
-        ,{fixed: 'right', width:175, align:'center', toolbar: '#operate'}
+        ,{fixed: 'right', width:175, align:'center', toolbar: '#member_operate'}
       ]]
       ,skin: 'line'
       ,id: 'Mainuser_getList'

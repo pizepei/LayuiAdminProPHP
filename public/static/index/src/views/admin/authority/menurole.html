@@ -1,0 +1,208 @@
+<title>菜单列表页</title>
+
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header">菜单列表页</div>
+        <div class="layui-card-body">
+
+<div id="AUTHORITYAccessCheckboxDIV">
+    
+
+
+</div>
+<script type="text/html"  type="text/html" id="AUTHORITYAccessCheckbox">
+<form class="layui-form" action="">
+              {{# layui.each(d.data,function(index,element){  }}
+
+          <table class="layui-table">
+            <colgroup>
+              <col width="30">
+              <col width="30">
+              <col width="30">
+              <col width="100">
+              <col width="100">
+              <col width="100">
+              <col width="100">
+              <col width="90">
+            </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="3" style='text-align: center;'>标题与等级</th>
+                  <th  rowspan="2" style='text-align: center;'>名称</th>
+                  <th  rowspan="2" style='text-align: center;'>菜单状态</th>
+                  <th  rowspan="2" style='text-align: center;'>权限操作</th>
+                </tr>
+                <tr>
+                  <th style='text-align: center;'>一</th>
+                  <th style='text-align: center;'>二</th>
+                  <th style='text-align: center;'>三</th>
+                </tr>
+              </thead>
+            <tbody>
+
+               <tr>
+
+               <!-- <tr style='background-color: #FFB800;'> -->
+                <td>{{element.title}}</td>
+                <td></td>
+                <td></td>
+                <td>{{element.name}}</td>
+                <td>
+                    {{# if(element.status == 1){  }}
+                        <span style="color: #red;">锁定</span>
+                    {{# }else{ }}
+                        <span style="color: #5FB878;">正常</span>
+                    {{# } }}
+                </td>
+
+                <td >
+                    <input type="checkbox" name="enable" value="{{element.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="admin_meurole_switch" {{ element.access == 0 ? 'checked' : '' }}>
+                </td>
+
+              </tr>               
+                    {{# layui.each(element.list,function(index,Second){  }}   
+                           <tr>
+                            <td></td>
+                            <td>{{Second.title}}</td>
+                            <td></td>
+                            <td>{{Second.name}}</td>
+                            <td>
+                                {{# if(Second.status == 1){  }}
+
+                                    <span style="color: #red;">锁定</span>
+
+                                {{# }else{ }}
+
+                                    <span style="color: #5FB878;">正常</span>
+
+                                {{# } }}
+                            </td>
+                            <td>
+
+                                <input type="checkbox" name="enable" value="{{Second.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="admin_meurole_switch" {{ Second.access == 0 ? 'checked' : '' }}>
+     
+                            </td>
+
+                          </tr>
+
+                          {{# layui.each(Second.list,function(index,Three){  }}   
+                               <tr>
+                                <td></td>
+                                <td></td>
+                                <td>{{Three.title}}</td>
+                                <td>{{Three.name}}</td>
+                                <td>
+                                    {{# if(Three.status == 1){  }}
+
+                                        <span style="color: #red;">锁定</span>
+
+                                    {{# }else{ }}
+
+                                        <span style="color: #5FB878;">正常</span>
+
+                                    {{# } }}
+                                </td>
+
+
+                                <td>
+
+                                <input type="checkbox" name="enable" value="{{Three.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="admin_meurole_switch" {{ Three.access == 0 ? 'checked' : '' }}>
+
+                                </td>
+                              </tr>
+
+                          {{# });   }}
+
+                    {{# });   }}
+            </tbody>
+          </table>
+              {{# });   }}
+</form>
+</script>
+
+        </div>
+      </div>
+    </div>
+
+<script>
+
+layui.use(['admin','form'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,form = layui.form
+  ,laytpl = layui.laytpl
+  ,element = layui.element
+  ,router = layui.router();
+  // alert(layui.router().search.id);
+
+  admin.req({
+    url: '/authority/Menuaccess/setList/' //实际使用请改成服务端真实接口
+    ,data: {
+      name:layui.router().search.id
+    }
+    ,done: function(res){        
+        var getTpl = AUTHORITYAccessCheckbox.innerHTML
+        view = document.getElementById('AUTHORITYAccessCheckboxDIV');
+        laytpl(getTpl).render(res, function(html){
+            view.innerHTML = html;
+        });
+        form.render(); //更新全部
+    }
+  });
+
+form.on('switch(admin_meurole_switch)', function(data){
+
+      admin.req({
+        url: '/authority/MenuAccess/updateList/' //实际使用请改成服务端真实接口
+        ,data: {
+          uid:layui.router().search.id,
+          aid:data.value,
+          type:layui.router().search.type,
+          status:data.elem.checked
+        }
+        ,done: function(res){        
+            layer.msg('操作成功', {
+              offset: '30px'
+              ,icon: 1
+              ,time: 3000
+            });
+        }
+  });
+
+// console.log(data.elem); //得到checkbox原始DOM对象
+// console.log(data.elem.checked); //是否被选中，true或者false
+// console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+// console.log(data.othis); //得到美化后的DOM对象
+});        
+       
+
+});
+
+// 删除
+
+
+// 修改
+function menuedit(id,title,sort,icon,name,status){
+    Data = { "id": id, "title": title , "sort": sort, "icon": icon, "name": name, "status":status}
+        var $ = layui.$
+        bbc = $('#menuedit').html();
+    layui.use('laytpl', function(){
+        
+        var laytpl = layui.laytpl,form = layui.form;;
+
+        laytpl(bbc).render(Data, function(html){
+          bbchtml = html;
+        });
+        layer.open({
+        type: 1,
+        skin: 'layui-layer-rim',
+        area: ['440px', '550px'],
+        content: bbchtml
+        });
+        form.render(); //更新全部
+
+    })
+}
+
+
+</script>
