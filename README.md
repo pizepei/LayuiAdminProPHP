@@ -62,6 +62,8 @@ www  WEB部署目录（或者子目录）
 ~~~
  ## 文档：
  + [更新日志](https://github.com/pizepei/LayuiAdminProPHP/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)  
+ + [演示地址](http://demo.heil.red/) ，登录用户：test 密码：p123456
+
  ## 配置简介：
  + 应用的配置都在应用目录下的config.php中，具体的直接打开config.php文件就可以了解。
  + LayAdmin的配置在根目录下config.js中
