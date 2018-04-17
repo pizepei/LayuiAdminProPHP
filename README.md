@@ -60,6 +60,10 @@ www  WEB部署目录（或者子目录）
 ├─config.js        LayAdmin的配置
 注意：这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（可在应用的config.php中修改）
 ~~~
+ ## 文档：
+ + [更新日志](https://github.com/pizepei/LayuiAdminProPHP/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)  
+ + [演示地址](http://demo.heil.red/) ，登录用户：test 密码：p123456
+
  ## 配置简介：
  + 应用的配置都在应用目录下的config.php中，具体的直接打开config.php文件就可以了解。
  + LayAdmin的配置在根目录下config.js中
@@ -88,11 +92,15 @@ www  WEB部署目录（或者子目录）
   + 菜单权限与方法权限（控制器方法）共同使用一个用户组系统。
   + 除index首页（宿主页面）的渲染、登录注册、退出登录、对外开放API（微信）等控制器外的所有控制器请继承extend\VerifiController\AdminLoginVerifi.php 类由该类进行权限控制。
  #### 编写的规范：
-   + 所以MVC所有业务逻辑与数据操作都放在模型（M）中，控制器（C）中不再有任何业务逻辑也不要在控制器中进行db操作，控制器只做请求的转发与权限控制。
+   + 所有业务逻辑与数据操作都放在模型（M）中，控制器（C）中不再有任何业务逻辑也不要在控制器中进行db操作，控制器只做请求的转发与权限控制。
   API数据规范：控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
  #### 日志处理：
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
+ #### 常用方法：
+  + 控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
+  + app\login\model\MainUser 类的 MainUser::setUserData($id,$type=false)，当type=false时只获取用户的数据，为true时获取并且更新Redis中的用户数据（排除了密码数据）。
+ #### 日志处理：
 #### think 命令行工具：
 + 1、需要在下面根目录下的think 文件 中配置
 ~~~
@@ -117,3 +125,5 @@ return [
  + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
  + 3、使用本项目代码在根目录进行粘贴替换。
  + 4、根据自己项目的需求对应用目录下config.php进行配置修改。
+
+ 
