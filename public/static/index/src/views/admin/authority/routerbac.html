@@ -1,0 +1,146 @@
+<title>功能权限</title>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>系统后台管理</cite></a>
+    <a><cite>权限管理</cite></a>
+    <a><cite>功能权限</cite></a>
+  </div>
+</div>
+<style>
+
+
+.layui-form-checkbox{
+  margin: 5px 10px 0px 0px;
+}
+
+</style>
+<!-- <div class="layui-fluid"> -->
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+
+
+
+            <div class="layui-card">
+              <div class="layui-card-header">功能权限</div>
+              <div class="layui-card-body">
+              <form class="layui-form" action="">
+
+                <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-brief" id="ADMIN_AUTHORITY_ROUTERBAC_DIV">
+
+
+                  <script type="text/html"  type="text/html" id="ADMIN_AUTHORITY_ROUTERBAC">
+
+                      <ul class="layui-tab-title">
+                        {{# layui.each(d.data,function(index,title){  }}   
+                                
+                              <li >{{index}}</li>
+
+                        {{#  });   }}
+
+                      </ul>
+                      <div class="layui-tab-content">
+
+                        {{# layui.each(d.data,function(index,value){  }}   
+
+                              <div class="layui-tab-item">
+                                    
+                              {{# layui.each(value,function(index,twovalue){  }}   
+
+                                  <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>{{index}}{{twovalue.title}}</legend>
+                                    <div class="layui-field-box">
+                                          {{# layui.each(twovalue.funs,function(index,threevalue){  }}      
+                                                    <input type="checkbox" name="router[]" value="{{twovalue.herf}}/{{index}}" title="{{threevalue}}" lay-filter="admin_routerbac_checkbox"
+                                                    {{# if(twovalue['status'][index] == 0){     }}
+                                                        checked
+                                                    {{#  } }}>
+
+
+                                          {{#  });   }}
+
+                                    </div>
+                                  </fieldset>
+
+                              {{#  });   }}
+
+                              </div>
+                        {{#  });   }}
+                      </div>
+
+                  </script>
+
+
+
+
+                </div>
+              </div>
+            </form>
+            </div>
+
+
+
+        </div>
+
+
+      </div>
+    </div>
+    
+    
+  </div>
+
+<script>
+
+layui.use(['admin','form'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,form = layui.form
+  ,laytpl = layui.laytpl
+  ,element = layui.element
+  ,router = layui.router();
+
+  admin.req({
+    url: '/authority/Routerbac/setList/' //实际使用请改成服务端真实接口
+    ,data: {
+      name:layui.router().search.id
+    }
+    ,done: function(res){        
+        var getTpl = ADMIN_AUTHORITY_ROUTERBAC.innerHTML
+        view = document.getElementById('ADMIN_AUTHORITY_ROUTERBAC_DIV');
+        laytpl(getTpl).render(res, function(html){
+            view.innerHTML = html;
+        });
+        form.render(); //更新全部
+    }
+  });
+
+form.on('checkbox(admin_routerbac_checkbox)', function(data){
+
+      admin.req({
+        url: '/authority/Routerbac/updateList/' //实际使用请改成服务端真实接口
+        ,data: {
+          uid:layui.router().search.id,
+          aid:data.value,
+          type:layui.router().search.type,
+          status:data.elem.checked
+        }
+        ,done: function(res){        
+            layer.msg('操作成功', {
+              offset: '30px'
+              ,icon: 1
+              ,time: 3000
+            });
+        }
+  });
+
+});        
+       
+});
+
+</script>
+
+
+

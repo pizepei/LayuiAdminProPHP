@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-13 14:51:47
+ * @Last Modified time: 2018-04-17 10:01:25
  */
 namespace VerifiController;
 use think\Controller;
@@ -11,7 +11,12 @@ use Safety\Safetylogin;
 use redis\RedisLogin;
 use app\login\model\MainUser;
 use app\login\model\LoginLog as Log;
-
+use think\Request;
+use think\Cache;
+use authority\AdminRouteAccess;
+/**
+ * Controller基类
+ */
 class AdminLoginVerifi extends Controller
 {
 
@@ -20,7 +25,6 @@ class AdminLoginVerifi extends Controller
 
     public function __construct()
     {
-        // $this->atups();
         // exit;
         // 检测php环境
         if (!extension_loaded('redis')) {
@@ -29,6 +33,9 @@ class AdminLoginVerifi extends Controller
         $this->access_token = input('access_token');
         //JWT登录验证
         $this->VerifiDecodeJWT();
+        //rbac权限验证
+        $this->verifiRbac();
+
         parent::__construct();
 
     }
@@ -86,15 +93,16 @@ class AdminLoginVerifi extends Controller
         }
     }
 
-    public function atups()
+    //获取 权限信息
+    public function getRbac()
     {
         $bangs = CONF_PATH;
 
-        // $rbac = Cache::get('rbac');
-
-        // if ($rbac) {
-        //     return $rbac;
-        // }
+        //判断是否有缓存
+        $rbac = Cache::get('ADMIN_RBAC');
+        if ($rbac) {
+            return $rbac;
+        }
         //打开总目录
         $bangs = CONF_PATH;
         //打开资源
@@ -108,7 +116,7 @@ class AdminLoginVerifi extends Controller
                 $dirs[] = $mfile . '/controller'; //拼接目录
             }
         }
-        dump($dirs);
+        // dump($dirs);
         //列出所有的目录数据
         foreach ($dirs as $v) {
             $dir = opendir($v);
@@ -124,18 +132,47 @@ class AdminLoginVerifi extends Controller
                         $funlist = explode("\\", $str);
                         $controllers[$funlist[0]][$funlist[1]] = $herf;
                     }
-                }
+                } 
             }
         }
-        dump( $controllers);
-        // $re = SysRule::updatafirm($controllers);
 
-        // Cache::set('rbac', $controllers, 3600); //OK
-        // $authbase = '/' . strtolower($this->request->module() . '/' . $this->request->controller() . "/" . $this->request->action());
-        // if ($this->request->action() == 'clearcace') {
-        //     $authbase = '/index/index/index';
-        // }
-        // return $this->success('更新系统RBAC数据完成^_^', $authbase); //请稍等
+        Cache::set('ADMIN_RBAC',$controllers,100);
+        return $controllers;
+        // Result(['code'=>0,'msg'=>'更新系统RBAC数据完成^_^']);
+
+    }
+    /**
+     * [getRoute 获取路由]
+     * @Effect
+     * @return [type] [description]
+     */
+    public function getRoute()
+    {
+
+        $Request = Request::instance();
+
+        return strtolower($Request->module().'/'.$Request->controller().'/'.$Request->action());
+
+    }
+    /**
+     * [verifiRbac 路由权限]
+     * @Effect
+     * @return [type] [description]
+     */
+    public function verifiRbac()
+    {
+        //获取数据
+        $this->getRbac();
+        //获取当前路由
+        $Route = $this->getRoute();
+
+        // 获取权限
+        $Access = AdminRouteAccess::getAccess($this->UserData['user_group']['Role']);
+        if(!in_array($Route,$Access)){
+
+            Result(['code'=>1,'msg'=>'您没有权限']);
+        }
+
     }
 
 }

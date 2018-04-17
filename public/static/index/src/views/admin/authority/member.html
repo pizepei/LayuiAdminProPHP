@@ -48,7 +48,7 @@
   </div>
 <!-- </div> -->
 <!-- 账户状态 -->
-<script type="text/html" id="switchTpl">
+<script type="text/html" id="admin_authority_member_href">
   <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="member_operate">
@@ -214,7 +214,7 @@
         ,{field: 'balance', title: '用户余额', minWidth: 150,width:160 }
         ,{field: 'integral', title: '用户积分余额', minWidth: 130,width:160 }
         ,{field: 'register_way', title: '注册方式', minWidth: 100,width:100 }
-        ,{field: 'status', title: '状态', minWidth: 100,width:100 ,templet: '#switchTpl', unresize: true}
+        ,{field: 'status', title: '状态', minWidth: 100,width:100 ,templet: '#admin_authority_member_href', unresize: true}
         ,{field: 'create_time', title: '创建时间', minWidth: 160,width:160 }
         ,{fixed: 'right', width:175, align:'center', toolbar: '#member_operate'}
       ]]

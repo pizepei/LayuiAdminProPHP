@@ -3,12 +3,12 @@
  * @Author: pizepei
  * @Date:   2018-04-13 13:54:21
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-13 14:30:39
+ * @Last Modified time: 2018-04-16 21:52:47
  */
 namespace authority;
 use think\Model;
 use think\Cache;
-use think\AdminRole;
+use authority\AdminRole;
 /**
  * 系统 管理员 与 角色 关系模型
  */

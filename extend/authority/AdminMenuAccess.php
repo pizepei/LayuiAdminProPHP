@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:28:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-13 11:50:27
+ * @Last Modified time: 2018-04-16 16:29:55
  */
 namespace authority;
 use think\Model;
@@ -39,7 +39,6 @@ class AdminMenuAccess extends Model {
                 $RoleArr[] = $value['access_id'];
             }
         }
-        // dump($RoleArr);
 
         //获取权限数据
         // $Access = $Menu->where(['status'=>0])->cache('MenuAccess_getAccess_Access',0,'nameMenu')->select();

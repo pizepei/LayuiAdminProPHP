@@ -55,13 +55,13 @@
   </div>
 <!-- </div> -->
 <!-- 账户状态 -->
-<script type="text/html" id="switchTplrole">
+<script type="text/html" id="admin_authority_switchTplrole_role">
   <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
 </script>
 
-<script type="text/html" id="operaterole">
+<script type="text/html" id="admin_authority_operaterole_href">
   <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/admin/authority/menurole/id={{d.id}}/type=admin">菜单权限</a>
-  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/admin/authority/menurole/id={{d.id}}/type=admin">功能权限</a>
+  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/admin/authority/routerbac/id={{d.id}}/type=admin">功能权限</a>
 
 </script>
 <script type="text/html" id="operatecRole">
@@ -119,10 +119,10 @@
         // {type: 'numbers', fixed: 'left'}
         { field: 'id', title: 'id', minWidth: 50, sort: true,fixed:'left',width:50}
         ,{field: 'name', title: '名称', minWidth: 200, sort: true,width:200}
-        ,{field: 'status', title: '状态', minWidth: 120,width:120 ,templet: '#switchTplrole', unresize: true}
+        ,{field: 'status', title: '状态', minWidth: 120,width:120 ,templet: '#admin_authority_switchTplrole_role', unresize: true}
         ,{field: 'create_time', title: '创建时间', minWidth: 200,width:250 }
         ,{field: 'update_time', title: '更新时间', minWidth: 200,width:250 }
-        ,{fixed: 'right', width:300, align:'center', toolbar: '#operaterole'}
+        ,{fixed: 'right', width:300, align:'center', toolbar: '#admin_authority_operaterole_href'}
       ]]
       ,skin: 'line'
       ,id: 'testReload'

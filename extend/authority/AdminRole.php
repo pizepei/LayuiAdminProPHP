@@ -76,4 +76,14 @@ class AdminRole extends Model {
         return $this->hasMany('AdminRoleMenuAccess','role_id','id');
     }
 
+    /**
+     * [LoginMainToken 获取功能权限与 用户组 关系]
+     * @Effect
+     */
+    public function AdminRoleRouteAccess()
+    {
+        return $this->hasMany('AdminRoleRouteAccess','role_id','id');
+    }
+
+
 }
