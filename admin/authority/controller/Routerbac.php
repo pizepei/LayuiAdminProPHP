@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-16 15:05:28
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 14:14:38
+ * @Last Modified time: 2018-04-17 17:28:51
  */
 namespace app\authority\controller;
 
@@ -48,6 +48,7 @@ class Routerbac extends \VerifiController\AdminLoginVerifi
         $Type = input('type');
         $Status = input('status');
         $Aid = input('aid');
+        if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
 
         $arr = ['authority/Role/updataStatus','menu/Menu/deleteMenu','authority/Mainuser/updataStatus'];
 

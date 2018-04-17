@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:28:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 16:29:55
+ * @Last Modified time: 2018-04-17 16:46:19
  */
 namespace authority;
 use think\Model;
@@ -33,10 +33,12 @@ class AdminMenuAccess extends Model {
         $Menu = new static();
         //获取当前用户组的所有权限id
         $AdminRole = AdminRole::get($gid);
-        $AdminRoleMenuAccess = $AdminRole->AdminRoleMenuAccess->toArray();
+
+        $AdminRoleMenuAccess = $AdminRole->AdminRoleMenuAccess;
+
         foreach ($AdminRoleMenuAccess as $key => $value) {
-            if($value['status']==0){
-                $RoleArr[] = $value['access_id'];
+            if($value->status==0){
+                $RoleArr[] = $value->access_id;
             }
         }
 
@@ -44,14 +46,13 @@ class AdminMenuAccess extends Model {
         // $Access = $Menu->where(['status'=>0])->cache('MenuAccess_getAccess_Access',0,'nameMenu')->select();
         $Access = $Menu->where(['status'=>0])->where('id','in',$RoleArr)->select();
         // $Access = $Menu->where(['status'=>0])->select();
-        $Access = $Access->toArray();
+
         // dump($Access);
         //获取
         foreach ($Access as $key => $value) {
-            $arr[] = $value['menu_id'];
+            $arr[] = $value->menu_id;
         }
         // dump($arr);
-
         return  $arr;
     }
     /**
@@ -65,7 +66,6 @@ class AdminMenuAccess extends Model {
      */
     public static function  updateList($Uid,$Type,$Aid,$Status)
     {
-
         if($Status=='true'){
             $Status = 0;
         }else{
@@ -77,6 +77,7 @@ class AdminMenuAccess extends Model {
         $Access = $MenuAccess::get(['menu_id'=>$Aid]);
         //开启事务
         $MenuAccess->startTrans();
+
         try{
             $E = false;
             //判断是增加还是修改
@@ -89,6 +90,7 @@ class AdminMenuAccess extends Model {
                 $MenuAccess->create_time = Mdate();//
                 $MenuAccess->update_time = Mdate();//
                 $MenuAccess->save();
+
                 // 获取自增ID
                 if($MenuAccess->id){
                     //关联
@@ -98,6 +100,7 @@ class AdminMenuAccess extends Model {
                     $RoleMenuAccess->access_id = $MenuAccess->id;//权限id
                     $RoleMenuAccess->create_time = Mdate();//创建时间
                     $RoleMenuAccess->update_time = Mdate();//更新时间
+
                     if(!$RoleMenuAccess->save()){
                         $E = false;
                         $MenuAccess->rollback();

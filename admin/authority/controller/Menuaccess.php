@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 11:40:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 14:29:18
+ * @Last Modified time: 2018-04-17 16:46:23
  */
 namespace app\authority\controller;
 use authority\AdminMenuAccess as Access;
@@ -33,10 +33,12 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
      */
     public function updateList()
     {
-        (int)$Uid = input('uid');
+       (int)$Uid = input('uid');
+       if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
+
         $Type = input('type');
         $Status = input('status');
-        (int)$Aid = input('aid');
+        $Aid = input('aid');
         Result(Access::updateList($Uid,$Type,$Aid,$Status));
     }
     /**
@@ -44,7 +46,10 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
      */
     public function setList()
     {
+        echo $cccc;
+        
         (int)$Uid = input('name');
+        if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
         
         Result(AdminMenu::setMenu($Uid));
     }

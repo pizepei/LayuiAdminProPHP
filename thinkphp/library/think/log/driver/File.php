@@ -46,6 +46,7 @@ class File
      */
     public function save(array $log = [])
     {
+
         if ($this->config['single']) {
             $destination = $this->config['path'] . 'single.log';
         } else {
@@ -70,6 +71,8 @@ class File
 
         $info = '';
         foreach ($log as $type => $val) {
+            $apart_level = false;//增加的
+
             $level = '';
             foreach ($val as $msg) {
                 if (!is_string($msg)) {
@@ -86,11 +89,19 @@ class File
                 } else {
                     $filename = $path . DS . date('d') . '_' . $type . $cli . '.log';
                 }
+                $apart_level = true;//增加的
+
                 $this->write($level, $filename, true);
             } else {
                 $info .= $level;
             }
         }
+
+        if($apart_level){//增加的
+            \heillog\ErrorLog::addLog('日志写入类',stripslashes($level.$info),0);//增加的
+        }//增加的
+
+
         if ($info) {
             return $this->write($info, $destination);
         }

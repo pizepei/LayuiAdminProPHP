@@ -2,14 +2,13 @@
 /**
  * @Author: pizepei
  * @Date:   2018-02-13 10:48:43
- * @Last Modified by:   anchen
- * @Last Modified time: 2018-02-14 14:34:33
+ * @Last Modified by:   pizepei
+ * @Last Modified time: 2018-04-17 17:13:41
  */
 namespace think\log\driver;
 
 use think\App;
 use think\Request;
-use app\index\model\AdminLoginLog as addLog;
 
 /**
  * 本地化调试输出到文件
@@ -41,6 +40,7 @@ class MysqFile
      */
     public function save(array $log = [])
     {
+
         if ($this->config['single']) {
             $destination = $this->config['path'] . 'single.log';
         } else {
@@ -78,9 +78,9 @@ class MysqFile
                 $info .= $level;
             }
         }
+            \heillog\ErrorLog::addLog('日志写入类',stripslashes($level.$info),0);
 
         if($apart_level){
-
             \heillog\ErrorLog::addLog('日志写入类',stripslashes($level.$info),0);
         }
         if ($info) {

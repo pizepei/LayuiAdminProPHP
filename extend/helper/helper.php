@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-03-29 15:15:33
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-03-29 17:51:59
+ * @Last Modified time: 2018-04-17 16:06:59
  */
     /**
      * [Mt_str 生成随机字符串]
@@ -194,6 +194,9 @@
 
         if($Msg != ''){
             $Result['msg'] = $Msg;
+        }
+        if(!isset($Result)){
+            $Result = '';
         }
         die(json_encode($Result));
 
