@@ -1,9 +1,9 @@
 # LayuiAdminProPHP
-## LayuiAdminProPHP是针对LayuiAdminPro后台模板（以下简称LayAdmin）使用ThinkPHP5.0+开发的基础版本
+## LayuiAdminProPHP是针对LayuiAdminPro后台模板使用ThinkPHP5.0+开发的基础版本
 ## 此项目期望在基于ThinkPHP5.0+版本框架下编写一套（包含以下通用方案）的功能框架，以可以在大部分新目开始之初可拿来就用无需重复编写下方列出的功能模块提升开发效率。</br>
  + 1、账户登录、注册、密码找
  + 2、遵循 JWT（JSON Web Token）标准的鉴权方案（使用Redis），这里主要是针对单页面应用、APP后台
- + 3、LayAdmin菜单方案
+ + 3、LayuiAdmin菜单方案
  + 4、权限验证方案
  + 5、数据缓存方案（使用TP内置的缓存Redis驱动，标签化管理）</br>
  + 6、WEB IM方案
@@ -13,10 +13,10 @@
  + 10、验证码方案、邮箱验证、手机验证 （手机验证  完善中）
  + 11、基础的系统监控、异步任务处理方案（完善中）等
  + 12、简单的shadowsocksr数据库版本的系统后台管理（用户、结点、套餐、账号监控）</br>
- + 目前就这些后续再进行完善</br>
+
  
 等一个项目开始之初送需要基础功能方案。
-## 如果你对LayAdmin、ThinkPHP5还不太了解请阅读下面的简单介绍：
+## 如果你对LayuiAdmin、ThinkPHP5还不太了解请阅读下面的简单介绍：
  + 1、layuiAdmin后台模板介绍：
      + layuiAdmin后台模板为基于layui开发的单页面应用，所有操作无需跳转、采用前后端分离开发模式、更友好的交互体验，减轻浏览器负载、始终基于全新的 layui 版本、面向全屏幕尺寸的响应式适配能力、灵活的主题色配置。这里的基础版本目前只对单页面应用版本（layuiAdmin）进行适配<a href="http://www.layui.com/admin/">layuiAdmin官网</a>
  + 2、ThinkPHP5介绍：
@@ -57,7 +57,7 @@ www  WEB部署目录（或者子目录）
 │  │  ├─AdminLoginVerifi.php    系统后台
 │  │  ├─UserLoginVerifi.php     用户前台
 ├─table.sql        表结构(用户表中的用户需要自己添加)
-├─config.js        LayAdmin的配置
+├─config.js       LayuiAdmin的配置
 注意：这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（可在应用的config.php中修改）
 ~~~
  ## 文档：
@@ -66,7 +66,7 @@ www  WEB部署目录（或者子目录）
 
  ## 配置简介：
  + 应用的配置都在应用目录下的config.php中，具体的直接打开config.php文件就可以了解。
- + LayAdmin的配置在根目录下config.js中
+ + LayuiAdmin的配置在根目录下config.js中
  ## 注意：
  + 由于LayuiAdmin需要授权故不在此上次代码[授权地址](http://www.layui.com/admin/)  
  + 由于使用了ThinkPHP5.0+框架请先了解熟悉ThinkPHP的使用[手册地址](https://www.kancloud.cn/manual/thinkphp5/118003)  
