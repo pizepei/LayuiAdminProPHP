@@ -94,6 +94,37 @@ www  WEB部署目录（或者子目录）
  #### 编写的规范：
    + 所有业务逻辑与数据操作都放在模型（M）中，控制器（C）中不再有任何业务逻辑也不要在控制器中进行db操作，控制器只做请求的转发与权限控制。
   API数据规范：控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
+  
+  + 所有控制器都必须遵守如下规范，这是为了方便RBAC系统读取当前应用下所有的方法做权限列表（如果想隐藏控制器与权限不做下方规则定义方可）。
+    ~~~
+
+    namespace app\authority\controller;
+    /**
+     * 系统用户组管理       （这里必须加以说明控制器功能）
+     */
+    class Menuaccess extends \VerifiController\AdminLoginVerifi     （继承AdminLoginVerifi）
+    {
+
+       （必须 有 title 静态方法  方法内以数组键值对【'方法'=>'方法说明'】）
+
+        /**
+         * [title 标题]
+         * @Effect
+         * @return [type] [description]
+         */
+        static function title()
+        {
+            return[
+                'updateList'=>'更新系统菜单权限',
+                'setList'=>'设置用户组菜单权限',
+            ];
+        }
+     }  
+
+    ~~~  
+  
+  
+  
  #### 日志处理：
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
