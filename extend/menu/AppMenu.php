@@ -59,6 +59,10 @@ class AppMenu extends Model {
                 $data = ['name'=>$value['name'],'title'=>$value['title'],'icon'=>$value['icon'],'list'=>self::plist($Menu,$value['id']),'sort'=>$value['sort'],'id'=>$value['id']];
                 $MenuData[]= $data;
         }
+        //清除 缓存
+        Cache::clear('AdminNameMenu');
+
+
         return $MenuData;
     } 
 

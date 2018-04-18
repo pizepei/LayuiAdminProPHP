@@ -28,9 +28,9 @@ class AdminMenu extends Model {
         //     # code...
         // }
         //获取总数据
-        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->cache('AdminMenu_getMenu_Menu',0,'nameMenu')->select();
+        $Menu = $AppMenu->where(['isdel'=>0,'status'=>0])->cache('AdminMenu_getMenu_Menu',0,'AdminNameMenu')->select();
         // 获取一级菜单并进行排序
-        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->cache('AdminMenu_getMenu_fatherMenu',0,'nameMenu')->select();
+        $fatherMenu = $AppMenu->where(['father_id'=>0,'isdel'=>0,'status'=>0])->order('sort desc')->cache('AdminMenu_getMenu_fatherMenu',0,'AdminNameMenu')->select();
         $Menu =$Menu ->toArray();
         $fatherMenu =$fatherMenu ->toArray();
         $MenuData = array();
@@ -176,7 +176,8 @@ class AdminMenu extends Model {
         // dump($Menu->allowField(true)->save());
         if($Menu->allowField(true)->save()){
             self::saveCache();
-
+            //清除 缓存
+            Cache::clear('AdminNameMenu');
             return true;
         }
 

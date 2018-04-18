@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:23:17
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 13:57:30
+ * @Last Modified time: 2018-04-18 16:34:09
  */
 namespace authority;
 use think\Model;
@@ -50,18 +50,16 @@ class AdminRouteAccess extends Model {
 
         $Menu = new static();
         //获取当前用户组的所有权限id
-        $AdminRole = AdminRole::get($gid);
+
+        $AdminRole = AdminRole::where('id',$gid)->cache('authority_AdminRouteAccess_getAccess_AdminRole',7200,'AdminAccess')->find();
         $AdminRoleRouteAccess = $AdminRole->AdminRoleRouteAccess;
         foreach ($AdminRoleRouteAccess as $key => $value) {
             if($value->status==0){
                 $RoleArr[] = $value->access_id;
             }
         }
-
         //获取权限数据
-        // $Access = $Menu->where(['status'=>0])->cache('MenuAccess_getAccess_Access',0,'nameMenu')->select();
-        $Access = $Menu->where(['status'=>0])->where('id','in',$RoleArr)->select();
-        // $Access = $Menu->where(['status'=>0])->select();
+        $Access = $Menu->cache('authority_AdminRouteAccess_getAccess_Access',7200,'AdminAccess')->where(['status'=>0])->where('id','in',$RoleArr)->select();
         //获取
         foreach ($Access as $key => $value) {
             $arr[] = $value->menu_id;
@@ -195,6 +193,9 @@ class AdminRouteAccess extends Model {
             $MenuAccess->rollback();
             throw $e;
         }
+        //清除 权限缓存
+        Cache::clear('AdminAccess');
+        
         return $E;
 
 
