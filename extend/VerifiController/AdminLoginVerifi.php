@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 10:01:25
+ * @Last Modified time: 2018-04-18 14:43:15
  */
 namespace VerifiController;
 use think\Controller;
@@ -136,7 +136,7 @@ class AdminLoginVerifi extends Controller
             }
         }
 
-        Cache::set('ADMIN_RBAC',$controllers,100);
+        Cache::set('ADMIN_RBAC',$controllers,3);
         return $controllers;
         // Result(['code'=>0,'msg'=>'更新系统RBAC数据完成^_^']);
 
@@ -165,7 +165,6 @@ class AdminLoginVerifi extends Controller
         $this->getRbac();
         //获取当前路由
         $Route = $this->getRoute();
-
         // 获取权限
         $Access = AdminRouteAccess::getAccess($this->UserData['user_group']['Role']);
         if(!in_array($Route,$Access)){

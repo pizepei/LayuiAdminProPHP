@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-03-06 21:56:17
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 14:20:53
+ * @Last Modified time: 2018-04-16 14:52:27
  */
 namespace app\ssr\model;
 use think\Model;
@@ -21,13 +21,13 @@ class User extends Model {
         // 数据库类型
         'type'        => 'mysql',
         // 服务器地址
-        'hostname'    => '',
+        'hostname'    => 'demo.heil.red',
         // 数据库名
-        'database'    => '',
+        'database'    => 'demo_heil_ssr',
         // 数据库用户名
-        'username'    => '',
+        'username'    => 'demo_heil_ssr',
         // 数据库密码
-        'password'    => '',
+        'password'    => '2mWnPHhmxF4NEWEK',
         // 数据库编码默认采用utf8
         'charset'     => 'utf8',
         // 数据库表前缀

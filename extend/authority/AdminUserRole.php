@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-13 13:54:21
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 21:52:47
+ * @Last Modified time: 2018-04-18 11:43:47
  */
 namespace authority;
 use think\Model;
@@ -23,6 +23,20 @@ class AdminUserRole extends Model {
     public function AdminRole()
     {
         return $this->hasMany('AdminRole','id','role_id');
+    }
+    /**
+     * [updataRole 更新管理员用户组]
+     * @Effect
+     * @param  [type] $Rid [description]
+     * @param  [type] $Uid [description]
+     * @return [type]      [description]
+     */
+    public static function updataRole($Rid,$Uid){
+        (int)$Rid;
+        (int)$Uid;
+        $E = self::where('uid', $Uid)
+        ->update(['role_id'=>$Rid]);
+        return $E;
     }
 
 }

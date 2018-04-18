@@ -10,7 +10,7 @@ use app\ssr\model\User;
 use heillog\SsrUserLog as Log;
 use app\ssr\model\Indent;
 /**
- * 
+ *  用户管理[SSR]
  */
 class Suser extends \VerifiController\AdminLoginVerifi
 {
@@ -20,9 +20,8 @@ class Suser extends \VerifiController\AdminLoginVerifi
      * @Effect
      * @return [type] [description]
      */
-    static function title()
+    public static function title()
     {
-
         return[
             'getList'=>'获取SSR用户列表',
             'updataEnable'=>'更新SSR账户状态',
@@ -31,7 +30,6 @@ class Suser extends \VerifiController\AdminLoginVerifi
             'getUserData'=>'获取一个用户的详情',
             'getIndent'=>'获取用户订单数据',
             'setPlan'=>'更新套餐',
-
         ];
     }
 
@@ -42,7 +40,6 @@ class Suser extends \VerifiController\AdminLoginVerifi
      */
     public function getList()
     {
-
         (int)$page = input('page');
         (int)$limit = input('limit');
         if(empty(input('whe'))){
@@ -191,10 +188,6 @@ class Suser extends \VerifiController\AdminLoginVerifi
         }
 
     }
-
-
-
-
 
 }
 

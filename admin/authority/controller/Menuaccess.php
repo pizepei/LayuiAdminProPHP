@@ -3,12 +3,14 @@
  * @Author: pizepei
  * @Date:   2018-04-12 11:40:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 16:46:23
+ * @Last Modified time: 2018-04-18 14:54:46
  */
 namespace app\authority\controller;
 use authority\AdminMenuAccess as Access;
 use menu\AdminMenu;
 use menu\AppMenu;
+
+
 /**
  * 系统用户组管理
  */
@@ -36,9 +38,18 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
        (int)$Uid = input('uid');
        if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
 
+
         $Type = input('type');
+
         $Status = input('status');
         $Aid = input('aid');
+
+       $arr=[67,92,94,95,68,69];
+
+       if(in_array($Aid,$arr)){
+            Result(['code'=>1,'msg'=>'测试环境禁止这个操作']);
+       }
+
         Result(Access::updateList($Uid,$Type,$Aid,$Status));
     }
     /**
@@ -46,7 +57,6 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
      */
     public function setList()
     {
-        echo $cccc;
         
         (int)$Uid = input('name');
         if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}

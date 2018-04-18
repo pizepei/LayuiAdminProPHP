@@ -14,7 +14,7 @@ use think\Request;
 class Login extends Model {
 
     protected $resultSetType = 'collection';
-    const login_error_count = 10;  //密码错误次数
+    const login_error_count = 1000;  //密码错误次数
     const login_error_count_time = 7200;  //密码错误限制登录时间
     const type_WEB = 0;  //登录类型
     protected $Time = '';

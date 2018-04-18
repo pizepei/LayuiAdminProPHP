@@ -34,7 +34,7 @@
                       <i class="layui-icon">&#xe608;</i> 添加
                     </button>
                   </div>
-                  <table id="LAY-admin-autority-member"  lay-filter="topSearchtest"></table>
+                  <table id="LAY-admin-autority-member"  lay-filter="member_topSearchtest"></table>
                 </div>
 
               </div>
@@ -52,14 +52,59 @@
   <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="enableDemo" {{ d.status == 0 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="member_operate">
-  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">信息编辑</a>
-  <a class="layui-btn layui-btn-xs" lay-event="detail" lay-href="/ssr/user/userinfo/uid={{d.uid}}">设置权限组</a>
+  <a class="layui-btn layui-btn-xs" lay-event="member_admin_user_data_sva" >信息编辑</a>
+  <a class="layui-btn  layui-btn-xs" lay-event="member_admin_user_role">设置权限组</a>
+
 </script>
 
 <script type="text/html" id="member_user_group">
     {{d.user_group.Group}}
 </script>
 
+
+
+<script type="text/html" id="operatecmember_role">
+
+<form class="layui-form" action="">
+
+      <div class="layui-card">
+        <div class="layui-card-header">更改【{{d.name}}】 -用户组</div>
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-col-md12">
+            <div class="layui-form-item">
+              <label class="layui-form-label">选择用户组</label>
+              <div class="layui-input-inline">
+                <select name="rid" lay-verify="required">
+
+                {{# layui.each(d.data,function(index,Second){  }}   
+                  <option value="{{Second.id}}">{{Second.name}}</option>
+                {{# });   }}
+                </select>
+              </div>
+              
+            </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-inline">
+              <input type="text" name="uid" lay-verify="number" autocomplete="off" class="layui-input" value="{{d.user_id}}">
+            </div>
+
+          </div>
+
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="operatecmember_role_filter">立即提交</button>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+</form>
+
+</script>
 
 
 
@@ -190,6 +235,7 @@
     var $ = layui.$
     ,table = layui.table
     ,form = layui.form
+    ,laytpl = layui.laytpl
     ,admin = layui.admin;
     //登录信息
     table.render({
@@ -200,7 +246,6 @@
         access_token: layui.data('layuiAdmin').access_token
       }
       ,cols: [[
-        // {type: 'numbers', fixed: 'left'}
         { field: 'id', title: 'id', minWidth: 50, sort: true,fixed:'left',width:50}
         ,{field: 'name', title: '昵称', minWidth: 160, sort: true,width:160}
         ,{field: 'login_name', title: '登录名', minWidth: 160,width:160 }
@@ -221,7 +266,51 @@
       ,skin: 'line'
       ,id: 'Mainuser_getList'
     });
-  //监听性别操作
+
+
+    //监听工具条
+    table.on('tool(member_topSearchtest)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+      var data = obj.data; //获得当前行数据
+      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      var tr = obj.tr; //获得当前行 tr 的DOM对象
+     
+      if(layEvent === 'member_admin_user_role'){ //删除
+
+        var $ = layui.$
+        //获取用户组 列表
+        admin.req({
+          url: '/authority/Role/getList' //实际使用请改成服务端真实接口
+          ,data: {
+            
+          }
+          ,done: function(res){        
+            member_role = { "data": res.data, "user_id": obj.data.id,'name': obj.data.name}
+
+
+              membergetTpl = $('#operatecmember_role').html();
+              laytpl(membergetTpl).render(member_role, function(html){
+                  layer.open({
+                      type: 1,
+                      skin: 'layui-layer-rim',
+                      area: ['450px', '600px'],
+                      content: html
+                    });
+
+                    form.render(); //更新全部
+              });
+          }
+        });
+
+      } else if(layEvent === 'member_admin_user_data_sva'){ //编辑
+
+
+
+
+      }
+    });
+
+
+  //监听操作
   form.on('switch(enableDemo)', function(obj){
     id = this.value;
     type = obj.elem.checked;
@@ -241,6 +330,32 @@
     });
 
   });
+
+  //监听提交  修改
+  form.on('submit(operatecmember_role_filter)', function(data){
+
+      admin.req({
+        url: '/authority/Mainuser/updataRole' //实际使用请改成服务端真实接口
+        ,data: {
+          uid:data.field.uid,
+          rid:data.field.rid
+        }
+        ,done: function(res){        
+          layer.msg('操作成功', {
+            offset: '30px'
+            ,icon: 1
+            ,time: 3000
+          });
+        }
+      });
+
+
+
+
+    admin.events.refresh()
+    return false;
+  });
+
 
 
   //监听提交  添加

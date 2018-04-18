@@ -3,11 +3,14 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 14:30:06
+ * @Last Modified time: 2018-04-18 14:57:40
  */
 namespace app\menu\controller;
 use menu\AdminMenu;
 use menu\AppMenu;
+/**
+ * 系统菜单管理
+ */
 class Menu extends \VerifiController\AdminLoginVerifi
 {
 
@@ -16,9 +19,8 @@ class Menu extends \VerifiController\AdminLoginVerifi
      * @Effect
      * @return [type] [description]
      */
-    static function title()
+    public static function title()
     {
-
         return[
             'getList'=>'获取菜单列表',
             'setList'=>'设置系统后台菜单的列表',
@@ -27,7 +29,6 @@ class Menu extends \VerifiController\AdminLoginVerifi
             'updataMenu'=>'更新系统后台菜单',
             'deleteMenu'=>'删除系统后台菜单',
         ];
-
     }
 
     /**
@@ -83,6 +84,11 @@ class Menu extends \VerifiController\AdminLoginVerifi
     public function updataMenu()
     {
 
+       $arr=[67,92,94,95,68,69];
+       
+       if(in_array((int)input('id'),$arr)){
+            Result(['code'=>1,'msg'=>'测试环境禁止这个操作']);
+       }
         $Data=[
           'id'=>(int)input('id'),
           'name'=>input('name'),
@@ -93,7 +99,6 @@ class Menu extends \VerifiController\AdminLoginVerifi
         ];
 
         Result(AdminMenu::updataMenu($Data));
-
     }
 
     /**

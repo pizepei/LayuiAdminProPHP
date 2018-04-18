@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-14 15:21:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 14:37:07
+ * @Last Modified time: 2018-04-17 22:16:48
  */
 
 
@@ -25,8 +25,9 @@ class User extends \VerifiController\AdminLoginVerifi
 
         return[
             'userSeesion'=>'当前用户基础数据',
-            'userTerminalInfo'=>'用户登录日志',
-
+            'userTerminalInfo'=>'当前设备信息',
+            'userTerminalData'=>'当前用户信息',
+            'userTerminalIp'=>'当前设备IP信息',
         ];
     }
     /**
@@ -38,7 +39,6 @@ class User extends \VerifiController\AdminLoginVerifi
         //获取用户数据
         Result($this->UserData);
     }
-
     /**
      * [userTerminalInfo 获取用户访问设备部分数据]
      * @return [type] [description]
@@ -50,7 +50,7 @@ class User extends \VerifiController\AdminLoginVerifi
         
     }
     /**
-     * [userTerminalIp ip]
+     * [userTerminalIp 当前ip信息]
      * @return [type] [description]
      */
     public function userTerminalIp()
@@ -59,7 +59,7 @@ class User extends \VerifiController\AdminLoginVerifi
         
     }
     /**
-     * [userTerminalIp ip]
+     * [userTerminalData 当前用户信息]
      * @return [type] [description]
      */
     public function userTerminalData()

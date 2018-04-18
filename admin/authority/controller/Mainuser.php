@@ -3,10 +3,14 @@
  * @Author: pizepei
  * @Date:   2018-04-04 16:24:10
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 14:20:28
+ * @Last Modified time: 2018-04-18 11:44:19
  */
 namespace app\authority\controller;
 use app\login\model\MainUser   as User;
+
+use authority\AdminRole;
+use authority\AdminUserRole;
+
 /**
  * 系统后台管理员
  */
@@ -20,13 +24,14 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
     static function title()
     {
         return[
-            'getList'=>'获取权限组列表',
-            'updataStatus'=>'修改用户组状态',
-            'addUser'=>'添加权限组',
+            'getList'=>'获取管理员列表',
+            'updataStatus'=>'修改用户状态',
+            'addUser'=>'添加管理员',
+            'updataRole'=>'修改管理员用户组',
         ];
     }
     /**
-     * [getList 获取权限组列表]
+     * [getList 获取管理员列表]
      * @Effect
      * @return [type] [description]
      */
@@ -42,7 +47,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
         Result(User::getList($page,$limit,$whe));
     }
     /**
-     * [updataStatus 修改用户组状态]
+     * [updataStatus 修改用户状态]
      * @Effect
      * @return [type] [description]
      */
@@ -54,7 +59,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
         Result(User::updataStatus($Id,$Type));
     }
     /**
-     * [addRole 添加权限组]
+     * [addRole 添加管理员]
      * @Effect
      */
     public function addUser()
@@ -62,5 +67,21 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
         Result(User::addRole(input()));
     }
 
+    /**
+     * [updataRole 修改管理员用户组]
+     * @Effect
+     * @return [type] [description]
+     */
+    public function updataRole()
+    {
+
+        (int)$Uid = input('uid');
+        (int)$Rid = input('rid');
+        if(!AdminRole::get($Rid)){
+            Result(['code'=>1,'msg'=>'没有这个用户组']);
+        }
+        
+        Result(AdminUserRole::updataRole($Rid,$Uid));
+    }
 
 }

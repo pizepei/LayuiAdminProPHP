@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-16 15:05:28
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 17:28:51
+ * @Last Modified time: 2018-04-17 22:19:03
  */
 namespace app\authority\controller;
 
@@ -50,11 +50,11 @@ class Routerbac extends \VerifiController\AdminLoginVerifi
         $Aid = input('aid');
         if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
 
-        $arr = ['authority/Role/updataStatus','menu/Menu/deleteMenu','authority/Mainuser/updataStatus'];
+        // $arr = ['authority/Role/updataStatus','menu/Menu/deleteMenu','authority/Mainuser/updataStatus','authority/Routerbac/updateList'];
 
-        if(in_array($Aid,$arr)){
-                Result(['code'=>1,'msg'=>'测试账号断开这个修改权限']);
-        }
+        // if(in_array($Aid,$arr)){
+        //         Result(['code'=>1,'msg'=>'测试账号断开这个修改权限']);
+        // }
 
         Result(Access::updateList($Uid,$Type,$Aid,$Status));
     }
