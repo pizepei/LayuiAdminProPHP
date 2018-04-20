@@ -191,14 +191,14 @@ layui.define(function(exports){
       ,where: {
         access_token: layui.data('layuiAdmin').access_token
       }
-      ,cols: [[
+      ,cols: [
         // {type: 'numbers', fixed: 'left'}
         {field: 'Os', title: '设备与系统', minWidth: 235, sort: true}
         ,{field: 'Ipanel', title: '获取浏览器', minWidth: 120}
         ,{field: 'language', title: '语言', minWidth: 120, sort: true}
         ,{field: 'NetType', title: '网络', sort: true}
         // ,{field: 'IpInfo', title: 'IP', minWidth: 100 ,sort: true}
-      ]]
+      ]
       ,skin: 'line'
     });
 
@@ -209,11 +209,11 @@ layui.define(function(exports){
       ,where: {
         access_token: layui.data('layuiAdmin').access_token
       }
-      ,cols: [[
+      ,cols: [
         {field: 'province', title: '省', minWidth: 88}
         ,{field: 'city', title: '城市', minWidth: 100}
         ,{field: 'district', title: '地区' , minWidth: 110}
-      ]]
+      ]
       ,skin: 'line'
     });
 
@@ -224,14 +224,14 @@ layui.define(function(exports){
       ,where: {
         access_token: layui.data('layuiAdmin').access_token
       }
-      ,cols: [[
+      ,cols: [
          {field: 'name', title: '昵称', minWidth: 166}
         ,{field: 'login_name', title: '登录名', minWidth: 166}
         ,{field: 'phone', title: '手机号码', minWidth: 166}
         ,{field: 'email', title: '电子邮件', minWidth: 166}
         ,{field: 'combo', title: '套餐', minWidth: 166}
         ,{field: 'grade', title: '会员等级', minWidth: 166}
-      ]]
+      ]
       ,skin: 'line'
     });
   });

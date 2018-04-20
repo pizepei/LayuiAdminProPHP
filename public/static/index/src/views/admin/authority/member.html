@@ -280,8 +280,8 @@
         //获取用户组 列表
         admin.req({
           url: '/authority/Role/getList' //实际使用请改成服务端真实接口
+          ,type: 'DELETE' //实际使用请改成服务端真实接口
           ,data: {
-            
           }
           ,done: function(res){        
             member_role = { "data": res.data, "user_id": obj.data.id,'name': obj.data.name}

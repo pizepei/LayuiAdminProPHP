@@ -47,7 +47,7 @@ class Suser extends \VerifiController\AdminLoginVerifi
         }else{
             $whe = input('whe');
         }
-        Result(User::getUserData($page,$limit,$whe));
+        return Result(User::getUserData($page,$limit,$whe));
 
     }
     /**
@@ -68,11 +68,11 @@ class Suser extends \VerifiController\AdminLoginVerifi
         if(User::updataEnable($uid,$type) >0){
             //日志
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新账户状态:'.$type],4,0);
-            Result(true);
+            return Result(true);
 
         }else{
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新账户状态:'.$type],4,1);
-            Result(false);
+            return Result(false);
         }
 
     }
@@ -92,14 +92,14 @@ class Suser extends \VerifiController\AdminLoginVerifi
         $E = User::updataReservation($uid,$data);
         if($E >0){
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新账户有效期:'.$data],2,0);
-            Result(true,'更改成功：'.$data);
+            return Result(true,'更改成功：'.$data);
 
         }else if($E == 0){
-            Result(false,'更改失败:重复更新');
+            return Result(false,'更改失败:重复更新');
 
         }else{
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新账户有效期:'.$data],2,1);
-            Result(false,'更改失败');
+            return Result(false,'更改失败');
         }
 
     }
@@ -116,15 +116,15 @@ class Suser extends \VerifiController\AdminLoginVerifi
         $E = User::updataTransferEnable($uid,$data);
         if($E >0){
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新总流量:'.$data],2,0);
-            Result(true,'更改成功：'.$data);
+            return Result(true,'更改成功：'.$data);
 
         }else if($E == 0){
-            Result(false,'更改失败:重复更新');
+            return Result(false,'更改失败:重复更新');
 
         }else{
 
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新总流量:'.$data],2,1);
-            Result(false,'更改失败');
+            return Result(false,'更改失败');
 
         }
     }
@@ -139,9 +139,9 @@ class Suser extends \VerifiController\AdminLoginVerifi
         (int)$uid = input('uid');
         $E = User::get($uid)->toArray();
         if($E){
-            Result($E);
+            return Result($E);
         }else{
-            Result(false,'获取失败');
+            return Result(false,'获取失败');
         }
     }
 
@@ -162,7 +162,7 @@ class Suser extends \VerifiController\AdminLoginVerifi
             $whe = input('whe');
         }
         $Data = Indent::getIndent($uid,$page,$limit,$whe);
-        return json(["code"=>0,"msg"=>'',"data"=>$Data['data'],'count'=>$Data['count']]);
+        return Result($Data);
     }
 
     /**
@@ -178,13 +178,13 @@ class Suser extends \VerifiController\AdminLoginVerifi
 
         if($E >0){
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新套餐:'.$data],2,0);
-            Result(true,'更改成功：'.$data);
+            return Result(true,'更改成功：'.$data);
 
         }else if($E == 0){
-            Result(false,'更改失败:重复更新');
+            return Result(false,'更改失败:重复更新');
         }else{
             Log::addLog(['aid'=>$this->UserData['id'],'uid'=>$uid,'info'=>'更新套餐:'.$data],2,1);
-            Result(false,'更改失败');
+            return Result(false,'更改失败');
         }
 
     }

@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-02 10:01:48
+ * @Last Modified time: 2018-04-20 17:11:54
  */
 namespace app\login\controller;
 use think\Controller;
@@ -44,8 +44,8 @@ class Login extends Controller
         }
         //登录
         $Login = new AddLogin;
-        Result($Login->loginActionRedis($username,$password,$remember,$rememberTime));//redis 版本
-        Result($Login->loginAction($username,$password,$remember,$rememberTime));// redis +mysql
+        return Result($Login->loginActionRedis($username,$password,$remember,$rememberTime));//redis 版本
+        return Result($Login->loginAction($username,$password,$remember,$rememberTime));// redis +mysql
     }
 
 

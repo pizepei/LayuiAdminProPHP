@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-18 16:44:17
+ * @Last Modified time: 2018-04-20 15:34:03
  */
 namespace VerifiController;
 use think\Controller;
@@ -30,6 +30,7 @@ class AdminLoginVerifi extends Controller
         if (!extension_loaded('redis')) {
             throw new Exception('not support:redis');
         }
+
         $this->access_token = input('access_token');
         //JWT登录验证
         $this->VerifiDecodeJWT();

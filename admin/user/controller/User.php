@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-14 15:21:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 22:16:48
+ * @Last Modified time: 2018-04-20 17:17:17
  */
 
 
@@ -37,7 +37,7 @@ class User extends \VerifiController\AdminLoginVerifi
     public function userSeesion()
     {
         //获取用户数据
-        Result($this->UserData);
+        return Result($this->UserData);
     }
     /**
      * [userTerminalInfo 获取用户访问设备部分数据]
@@ -45,8 +45,7 @@ class User extends \VerifiController\AdminLoginVerifi
      */
     public function userTerminalInfo()
     {
-        // return json(TerminalInfo::getArowserPro('arr'));
-        $this->error('','',[TerminalInfo::getArowserPro('arr')]);
+        return Result([TerminalInfo::getArowserPro('arr')]);
         
     }
     /**
@@ -55,7 +54,8 @@ class User extends \VerifiController\AdminLoginVerifi
      */
     public function userTerminalIp()
     {
-        $this->error('','',[TerminalInfo::getIp()]);
+        return Result(TerminalInfo::getIp());
+
         
     }
     /**
@@ -64,7 +64,8 @@ class User extends \VerifiController\AdminLoginVerifi
      */
     public function userTerminalData()
     {
-        $this->error('','',[$this->UserData]);
+        return Result([$this->UserData]);
+
     }
 
 

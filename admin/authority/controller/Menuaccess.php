@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 11:40:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-18 14:54:46
+ * @Last Modified time: 2018-04-20 17:11:12
  */
 namespace app\authority\controller;
 use authority\AdminMenuAccess as Access;
@@ -50,7 +50,7 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
             Result(['code'=>1,'msg'=>'测试环境禁止这个操作']);
        }
 
-        Result(Access::updateList($Uid,$Type,$Aid,$Status));
+       return  Result(Access::updateList($Uid,$Type,$Aid,$Status));
     }
     /**
      * [setList 管理员获取设置]
@@ -61,7 +61,7 @@ class Menuaccess extends \VerifiController\AdminLoginVerifi
         (int)$Uid = input('name');
         if(empty($Uid)){ Result(['code'=>1,'msg'=>'请选择用户组']);}
         
-        Result(AdminMenu::setMenu($Uid));
+       return  Result(AdminMenu::setMenu($Uid));
     }
 
 

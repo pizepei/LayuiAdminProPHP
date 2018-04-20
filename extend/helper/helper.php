@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-03-29 15:15:33
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 16:06:59
+ * @Last Modified time: 2018-04-20 17:42:50
  */
     /**
      * [Mt_str 生成随机字符串]
@@ -118,20 +118,15 @@
         }
         return strtotime($str) !== false;
     }
-
     /**
      * [Result 判断并且返回结果给前端]
      * @Effect
-     * @param  [type] $Data [description]
-     * @param  string $Msg  [description]
+     * @param  [type]  $Data     [数据 开bool，arr，nulll  ]
+     * @param  string  $Msg      [业务提示信息]
+     * @param  integer $HttpCode [http状态码]
+     * @param  boolean $over     [是否直接结束程序]
      */
-    function Result($Data,$Msg=''){
-
-        /**
-         * 注意：规则
-         * 如果存入$Data 为array,就认为是数据返回
-         *     如果 $Data['count'] 就为
-         */
+    function Result($Data,$Msg='',$HttpCode=200,$Over=false){
 
         //判断是否是数组
         if(is_array($Data)){
@@ -198,8 +193,12 @@
         if(!isset($Result)){
             $Result = '';
         }
-        die(json_encode($Result));
-
+        (int)$HttpCode;
+        
+        if($Over == true){
+          die(json_encode($Result));
+        }
+        return json($Result,$HttpCode);
     }
 
 

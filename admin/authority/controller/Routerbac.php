@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-16 15:05:28
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 22:19:03
+ * @Last Modified time: 2018-04-20 17:11:27
  */
 namespace app\authority\controller;
 
@@ -34,7 +34,7 @@ class Routerbac extends \VerifiController\AdminLoginVerifi
     {
         (int)$Uid = input('name');
         
-        Result(Access::getAccessList($Uid,$this->getRbac()));
+        return Result(Access::getAccessList($Uid,$this->getRbac()));
     }
 
     /**
@@ -56,6 +56,6 @@ class Routerbac extends \VerifiController\AdminLoginVerifi
         //         Result(['code'=>1,'msg'=>'测试账号断开这个修改权限']);
         // }
 
-        Result(Access::updateList($Uid,$Type,$Aid,$Status));
+        return Result(Access::updateList($Uid,$Type,$Aid,$Status));
     }
 }

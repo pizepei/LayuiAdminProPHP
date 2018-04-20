@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-17 14:01:52
+ * @Last Modified time: 2018-04-20 17:11:21
  */
 namespace app\authority\controller;
 use authority\AdminRole  as RoleName;
@@ -39,7 +39,7 @@ class Role extends \VerifiController\AdminLoginVerifi
         }else{
             $whe = input('whe');
         }
-        Result(RoleName::getList($page,$limit,$whe));
+        return Result(RoleName::getList($page,$limit,$whe));
     }
     /**
      * [updataStatus 修改用户组状态]
@@ -51,7 +51,7 @@ class Role extends \VerifiController\AdminLoginVerifi
         (int)$Id = input('id');
         $Type = input('type');
         $Type = $Type=='false'?1:0;
-        Result(RoleName::updataStatus($Id,$Type));
+        return Result(RoleName::updataStatus($Id,$Type));
     }
     /**
      * [addRole 添加权限组]
@@ -59,7 +59,7 @@ class Role extends \VerifiController\AdminLoginVerifi
      */
     public function addRole()
     {
-        Result(RoleName::addRole(input()));
+        return Result(RoleName::addRole(input()));
     }
 
 

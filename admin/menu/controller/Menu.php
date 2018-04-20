@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-18 14:57:40
+ * @Last Modified time: 2018-04-20 17:10:44
  */
 namespace app\menu\controller;
 use menu\AdminMenu;
@@ -39,7 +39,7 @@ class Menu extends \VerifiController\AdminLoginVerifi
     public function getList()
     {
         // echo $this->UserData['login_name'];
-        Result(AdminMenu::getMenu());
+        return Result(AdminMenu::getMenu());
         // $this->success('','',AdminMenu::getMenu());
     }
     /**
@@ -47,14 +47,14 @@ class Menu extends \VerifiController\AdminLoginVerifi
      */
     public function setList()
     {
-        Result(AdminMenu::setMenu(1));
+        return Result(AdminMenu::setMenu(1));
     }
     /**
      * [setList 用户获取设置]
      */
     public function setAppList()
     {
-        Result(AppMenu::setMenu());
+        return Result(AppMenu::setMenu());
     }
 
     /**
@@ -72,7 +72,7 @@ class Menu extends \VerifiController\AdminLoginVerifi
           'title'=>input('title'),
         ];
 
-        Result(AdminMenu::addMenu($Data));
+        return Result(AdminMenu::addMenu($Data));
 
     }
 
@@ -98,7 +98,7 @@ class Menu extends \VerifiController\AdminLoginVerifi
           'title'=>input('title'),
         ];
 
-        Result(AdminMenu::updataMenu($Data));
+        return Result(AdminMenu::updataMenu($Data));
     }
 
     /**
@@ -114,7 +114,7 @@ class Menu extends \VerifiController\AdminLoginVerifi
         if(!$id){
             Result('','请选择需要操作的菜单');
         }
-        Result(AdminMenu::deleteMenu($id));
+        return Result(AdminMenu::deleteMenu($id));
 
     }
 

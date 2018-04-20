@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-04 16:24:10
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-18 11:44:19
+ * @Last Modified time: 2018-04-20 17:11:03
  */
 namespace app\authority\controller;
 use app\login\model\MainUser   as User;
@@ -44,7 +44,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
         }else{
             $whe = input('whe');
         }
-        Result(User::getList($page,$limit,$whe));
+        return Result(User::getList($page,$limit,$whe));
     }
     /**
      * [updataStatus 修改用户状态]
@@ -56,7 +56,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
         (int)$Id = input('id');
         $Type = input('type');
         $Type = $Type=='false'?1:0;
-        Result(User::updataStatus($Id,$Type));
+        return Result(User::updataStatus($Id,$Type));
     }
     /**
      * [addRole 添加管理员]
@@ -64,7 +64,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
      */
     public function addUser()
     {
-        Result(User::addRole(input()));
+        return Result(User::addRole(input()));
     }
 
     /**
@@ -81,7 +81,7 @@ class Mainuser extends \VerifiController\AdminLoginVerifi
             Result(['code'=>1,'msg'=>'没有这个用户组']);
         }
         
-        Result(AdminUserRole::updataRole($Rid,$Uid));
+        return Result(AdminUserRole::updataRole($Rid,$Uid));
     }
 
 }

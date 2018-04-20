@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-22 14:32:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-02 11:33:28
+ * @Last Modified time: 2018-04-20 17:11:58
  */
 namespace app\login\controller;
 use think\Controller;
@@ -36,6 +36,6 @@ class Logout extends \VerifiController\AdminLoginVerifi
     public function logout()
     {
         $Addlogout = new Addlogout;
-        Result($Addlogout->logout($this->access_token,$this->UserData,'redis'));
+        return Result($Addlogout->logout($this->access_token,$this->UserData,'redis'));
     }
 }
