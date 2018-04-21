@@ -24,6 +24,10 @@
  ## 运行环境的简单介绍：
  + 1、推荐PHP7+版本+MySQL+Nginx
  + 2、功能模块中大量运用到Redis
+ ## 文档：
+ + [更新日志](https://github.com/pizepei/LayuiAdminProPHP/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)  
+ + [演示地址](http://demo.heil.red/) ，登录用户：test 密码：p123456（测试账号屏蔽大部分敏感权限）
+ 
  ## 目录结构简介：
  ~~~
 www  WEB部署目录（或者子目录）
@@ -60,10 +64,6 @@ www  WEB部署目录（或者子目录）
 ├─config.js       LayuiAdmin的配置
 注意：这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（可在应用的config.php中修改）
 ~~~
- ## 文档：
- + [更新日志](https://github.com/pizepei/LayuiAdminProPHP/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)  
- + [演示地址](http://demo.heil.red/) ，登录用户：test 密码：p123456
-
  ## 配置简介：
  + 应用的配置都在应用目录下的config.php中，具体的直接打开config.php文件就可以了解。
  + LayuiAdmin的配置在根目录下config.js中
