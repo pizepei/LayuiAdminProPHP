@@ -13,7 +13,7 @@ namespace think\log\driver;
 
 use think\App;
 use think\Request;
-
+use common\heillog\ErrorLog;
 /**
  * 本地化调试输出到文件
  */
@@ -98,7 +98,7 @@ class File
         }
 
         if($apart_level){//增加的
-            \heillog\ErrorLog::addLog('日志写入类',stripslashes($level.$info),0);//增加的
+            ErrorLog::addLog('日志写入类',stripslashes($level.$info),0);//增加的
         }//增加的
 
 

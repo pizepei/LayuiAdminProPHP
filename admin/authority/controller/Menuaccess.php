@@ -3,18 +3,18 @@
  * @Author: pizepei
  * @Date:   2018-04-12 11:40:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:11:12
+ * @Last Modified time: 2018-04-21 23:51:28
  */
 namespace app\authority\controller;
-use authority\AdminMenuAccess as Access;
-use menu\AdminMenu;
-use menu\AppMenu;
+use common\authority\AdminMenuAccess as Access;
+use common\menu\AdminMenu;
+use common\menu\AppMenu;
 
 
 /**
  * 系统用户组管理
  */
-class Menuaccess extends \VerifiController\AdminLoginVerifi
+class Menuaccess extends \common\VerifiController\AdminLoginVerifi
 {
     /**
      * [title 标题]

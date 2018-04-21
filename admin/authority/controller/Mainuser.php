@@ -3,18 +3,18 @@
  * @Author: pizepei
  * @Date:   2018-04-04 16:24:10
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:11:03
+ * @Last Modified time: 2018-04-21 23:51:29
  */
 namespace app\authority\controller;
 use app\login\model\MainUser   as User;
 
-use authority\AdminRole;
-use authority\AdminUserRole;
+use common\authority\AdminRole;
+use common\authority\AdminUserRole;
 
 /**
  * 系统后台管理员
  */
-class Mainuser extends \VerifiController\AdminLoginVerifi
+class Mainuser extends \common\VerifiController\AdminLoginVerifi
 {
     /**
      * [title 标题]

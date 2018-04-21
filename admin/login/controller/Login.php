@@ -3,11 +3,11 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:11:54
+ * @Last Modified time: 2018-04-21 23:47:58
  */
 namespace app\login\controller;
 use think\Controller;
-use Redis\RedisModel;
+use common\Redis\RedisModel;
 use app\login\model\Login as AddLogin;
 /**
  * 登录模块

@@ -7,12 +7,12 @@
 namespace app\ssr\controller;
 use think\Controller;
 use app\ssr\model\User;
-use heillog\SsrUserLog as Log;
+use common\heillog\SsrUserLog as Log;
 use app\ssr\model\Indent;
 /**
  *  用户管理[SSR]
  */
-class Suser extends \VerifiController\AdminLoginVerifi
+class Suser extends \common\VerifiController\AdminLoginVerifi
 {
 
     /**

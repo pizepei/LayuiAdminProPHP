@@ -1,5 +1,6 @@
 <?php
 namespace app\login\model;
+use common\custom\TerminalInfo;
 use think\Model;
 use think\Request;
 /**
@@ -13,7 +14,7 @@ class LoginLog extends Model {
     public static function  addLog($Data,$state)
     {
         //获取终端
-        $TerminalInfo =  new \custom\TerminalInfo();
+        $TerminalInfo =  new TerminalInfo();
         //验证类
         $request = Request::instance();
         $ip = $request->ip();//ip

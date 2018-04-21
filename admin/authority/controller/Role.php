@@ -3,14 +3,14 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:11:21
+ * @Last Modified time: 2018-04-21 23:51:34
  */
 namespace app\authority\controller;
-use authority\AdminRole  as RoleName;
+use common\authority\AdminRole  as RoleName;
 /**
  * 用户组
  */
-class Role extends \VerifiController\AdminLoginVerifi
+class Role extends \common\VerifiController\AdminLoginVerifi
 {
     /**
      * [title 标题]

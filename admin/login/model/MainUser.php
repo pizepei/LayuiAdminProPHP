@@ -2,10 +2,10 @@
 
 namespace app\login\model;
 use think\Model;
-use \Safety\Safetylogin as Safety;
-use \authority\AdminRole as Role; 
-use \authority\AdminUserRole as UserRole; 
-
+use common\Safety\Safetylogin as Safety;
+use common\authority\AdminRole as Role; 
+use common\authority\AdminUserRole as UserRole; 
+use common\redis\RedisLogin;
 /**
  * 登录用户模型
  */
@@ -116,7 +116,7 @@ class MainUser extends Model {
     public static function updataUserData($name)
     {
         $Data = self::loginAction($name);
-        $RedisLogin = new \redis\RedisLogin(config('admin_login_redis'));
+        $RedisLogin = new RedisLogin(config('admin_login_redis'));
         $RedisLogin->set_user_data($Data->id,$Data);
     }
     /**
@@ -130,7 +130,7 @@ class MainUser extends Model {
         $Data = self::get($id);
         $Data = $Data->hidden(['pwd_hash','pwd_salt'])->toArray();
         if($type){
-            $RedisLogin = new \redis\RedisLogin(config('admin_login_redis'));
+            $RedisLogin = new RedisLogin(config('admin_login_redis'));
             $RedisLogin->set_user_data($Data['id'],$Data);
         }else{
             return $Data;

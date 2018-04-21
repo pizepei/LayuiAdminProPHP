@@ -3,15 +3,15 @@
  * @Author: pizepei
  * @Date:   2018-04-16 15:05:28
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:11:27
+ * @Last Modified time: 2018-04-21 23:56:09
  */
 namespace app\authority\controller;
 
-use authority\AdminRouteAccess as Access;
+use common\authority\AdminRouteAccess as Access;
 /**
  * 系统后台管理员
  */
-class Routerbac extends \VerifiController\AdminLoginVerifi
+class Routerbac extends \common\VerifiController\AdminLoginVerifi
 {
     /**
      * [title 标题]

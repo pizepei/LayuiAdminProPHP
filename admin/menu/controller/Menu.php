@@ -3,15 +3,15 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:10:44
+ * @Last Modified time: 2018-04-21 23:51:49
  */
 namespace app\menu\controller;
-use menu\AdminMenu;
-use menu\AppMenu;
+use common\menu\AdminMenu;
+use common\menu\AppMenu;
 /**
  * 系统菜单管理
  */
-class Menu extends \VerifiController\AdminLoginVerifi
+class Menu extends \common\VerifiController\AdminLoginVerifi
 {
 
     /**

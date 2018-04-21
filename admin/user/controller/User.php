@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-14 15:21:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-20 17:17:17
+ * @Last Modified time: 2018-04-21 23:51:57
  */
 
 
@@ -13,7 +13,7 @@ use custom\TerminalInfo;
 /**
  * 当前用户信息
  */
-class User extends \VerifiController\AdminLoginVerifi
+class User extends \common\VerifiController\AdminLoginVerifi
 {
     /**
      * [title 标题]
@@ -64,7 +64,7 @@ class User extends \VerifiController\AdminLoginVerifi
      */
     public function userTerminalData()
     {
-        return Result([$this->UserData]);
+        return Result($this->UserData);
 
     }
 
