@@ -34,32 +34,40 @@ www  WEB部署目录（或者子目录）
 ├─admin           系统后台应用目录
 ├─public          系统后台入口
 │  ├─static        公共资源
-│  │  ├─index      Layuiadmin 资源文件
+│  │  ├─index      Layuiadmin 模板文件
 ├─extend          主要功能类目录
-│  ├─console            think 命令行
-│  │  ├─test.php        think 指令类示例
-│  ├─custom             获取公共信息
-│  │  ├─TerminalInfo.php      获取web客户端信息类（包括ip信息）
-│  ├─heillog        日志系列
-│  │  ├─ErrorLog.php    系统日志写入类
-│  │  ├─SsrUserLog.php   SSR操作用户记录日志写入类
-│  ├─helper         自定义助手函数系列
-│  │  ├─helper.php         自定义助手函数
-│  ├─menu        菜单系列
-│  │  ├─AdminMenu.php    系统后台菜单
-│  │  ├─AppMenu.php      用户前台菜单
-│  ├─redis        redis系列
-│  │  ├─RedisLogin.php    redis登录类
-│  │  ├─RedisModel.php    redis基类
-│  ├─Safety        密码、验证、JWT系列、数据加密等相关
-│  │  ├─Safetylogin.php   密码、验证、JWT系列、数据加密等相关
+│  ├─common            公共类文件
+│  │  ├─authority            权限相关类
+│  │  │  ├─AdminMenuAccess.php   菜单权限
+│  │  │  ├─AdminRole.php         用户角色组
+│  │  │  ├─AdminRoleMenuAccess.php   菜单权限与用户角色组关系
+│  │  │  ├─AdminRoleRouteAccess.php  方法权限与用户角色组关系
+│  │  │  ├─AdminRouteAccess.php    方法权限
+│  │  │  ├─AdminUserRole.php    系统管理员与角色关系模型
+│  │  ├─console            think 命令行
+│  │  │  ├─test.php        think 指令类示例
+│  │  ├─custom             获取公共信息
+│  │  │  ├─TerminalInfo.php      获取web客户端信息类（包括ip信息）
+│  │  ├─heillog        日志系列
+│  │  │  ├─ErrorLog.php    系统日志写入类
+│  │  │  ├─SsrUserLog.php   SSR操作用户记录日志写入类
+│  │  ├─helper         自定义助手函数系列
+│  │  │  ├─helper.php         自定义助手函数
+│  │  ├─menu        菜单系列
+│  │  │  ├─AdminMenu.php    系统后台菜单
+│  │  │  ├─AppMenu.php      用户前台菜单
+│  │  ├─redis        redis系列
+│  │  │  ├─RedisLogin.php    redis登录类
+│  │  │  ├─RedisModel.php    redis基类
+│  │  ├─Safety        密码、验证、JWT系列、数据加密等相关
+│  │  │  ├─Safetylogin.php   密码、验证、JWT系列、数据加密等相关
+│  │  ├─VerifiController        用以被控制器继承的权限验证、登录验证、基本信息获取
+│  │  │  ├─AdminLoginVerifi.php    系统后台
+│  │  │  ├─UserLoginVerifi.php     用户前台
 │  ├─SendMail        阿里云邮件类
 │  │  ├─EmailLog.php    邮件日志类
 │  │  ├─SendMail.php    初始化邮件发送类
 │  │  ├─Mail.php        邮件发送方法类
-│  ├─VerifiController        用以被控制器继承的权限验证、登录验证、基本信息获取
-│  │  ├─AdminLoginVerifi.php    系统后台
-│  │  ├─UserLoginVerifi.php     用户前台
 ├─table.sql        表结构(用户表中的用户需要自己添加)
 ├─config.js       LayuiAdmin的配置
 注意：这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（可在应用的config.php中修改）
@@ -97,14 +105,12 @@ www  WEB部署目录（或者子目录）
   
   + 所有控制器都必须遵守如下规范，这是为了方便RBAC系统读取当前应用下所有的方法做权限列表（如果想隐藏控制器与权限不做下方规则定义方可）。
     ~~~
-
     namespace app\authority\controller;
     /**
      * 系统用户组管理       （这里必须加以说明控制器功能）
      */
     class Menuaccess extends \VerifiController\AdminLoginVerifi     （继承AdminLoginVerifi）
     {
-
        （必须 有 title 静态方法  方法内以数组键值对【'方法'=>'方法说明'】）
 
         /**
@@ -120,11 +126,7 @@ www  WEB部署目录（或者子目录）
             ];
         }
      }  
-
     ~~~  
-  
-  
-  
  #### 日志处理：
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
@@ -152,9 +154,8 @@ return [
 + 目前这里只有一个\extend\console目录一个test.php指令类做简单示例。   
    
  ## 开始构建：
- + 1、安装好ThinkPHP5.0。
- + 2、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
- + 3、使用本项目代码在根目录进行粘贴替换。
- + 4、根据自己项目的需求对应用目录下config.php进行配置修改。
+ + 1、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
+ + 2、使用本项目代码在根目录进行粘贴替换。
+ + 3、根据自己项目的需求对应用目录下config.php进行配置修改。
 
  
