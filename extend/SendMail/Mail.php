@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-23 17:23:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:45:15
+ * @Last Modified time: 2018-04-22 17:06:08
  */
 namespace SendMail;
 use think\Loader;
@@ -14,7 +14,7 @@ use SendMail\SendMail;
  */
 class Mail{
 
-    //浏览器类型
+
     public static  $Domain = '';
     public static  $config = '';
     //模板
@@ -34,7 +34,7 @@ class Mail{
         $title = $config['codeName'][$type]['title'];
 
 
-        if(\SendMail\EmailLog::getAddTime($recipient,$Time,$type)){
+        if(EmailLog::getAddTime($recipient,$Time,$type)){
 
             return ['error'=>1,'msg'=>'你已经发邮件请稍后再发','data'=>'你已经发邮件请稍后再发'];
         }

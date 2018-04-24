@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-04-13 13:54:21
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:20:43
+ * @Last Modified time: 2018-04-24 10:27:25
  */
 namespace common\authority;
-use think\Model;
+use common\Model;
 use think\Cache;
 use common\authority\AdminRole;
 /**

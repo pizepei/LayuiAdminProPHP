@@ -3,11 +3,11 @@
  * @Author: pizepei
  * @Date:   2018-03-15 15:29:15
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:58:49
+ * @Last Modified time: 2018-04-24 10:27:44
  */
 namespace common\heillog;
 use common\custom\TerminalInfo;
-use think\Model;
+use common\Model;
 use think\Request;
 /**
  * 系统日志

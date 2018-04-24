@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:28:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:14:59
+ * @Last Modified time: 2018-04-24 10:27:01
  */
 namespace common\authority;
-use think\Model;
+use common\Model;
 use think\Cache;
 use common\authority\AdminRole;
 use common\authority\AdminRoleMenuAccess as RoleMenuAccess;

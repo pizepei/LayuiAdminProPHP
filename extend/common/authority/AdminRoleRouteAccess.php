@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-04-16 16:27:35
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:16:09
+ * @Last Modified time: 2018-04-24 10:27:19
  */
 namespace common\authority;
-use think\Model;
+use common\Model;
 use think\Cache;
 /**
  * 操作权限角色表与权限表的关联表

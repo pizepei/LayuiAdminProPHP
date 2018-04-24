@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:22:30
+ * @Last Modified time: 2018-04-24 10:06:01
  */
 namespace common\custom;
 use think\Request;
@@ -257,130 +257,135 @@ class TerminalInfo{
      * @author  Jea杨  
      * @return string   
      */  
-    public static function get_os(){  
-    $agent = $_SERVER['HTTP_USER_AGENT'];  
-        $os = false;  
-        if (preg_match('/win/i', $agent) && strpos($agent, '95'))  
-        {  
-          $os = self::Windows_95;  
-        }  
-        else if (preg_match('/win 9x/i', $agent) && strpos($agent, '4.90'))  
-        {  
-          $os = self::Windows_95;    
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/98/i', $agent))  
-        {  
-          $os =  self::Windows_98; 
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/nt 6.0/i', $agent))  
-        {  
-          $os = self::Windows_Vista;  
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/nt 6.1/i', $agent))  
-        {  
-          $os = self::Windows_7;  
-        }  
-          else if (preg_match('/win/i', $agent) && preg_match('/nt 6.2/i', $agent))  
-        {  
-          $os = self::Windows_8;  
-        }else if(preg_match('/win/i', $agent) && preg_match('/nt 10.0/i', $agent))  
-        {  
-          $os = self::Windows_10;
-        }else if (preg_match('/win/i', $agent) && preg_match('/nt 5.1/i', $agent))  
-        {  
-          $os = self::Windows_XP;  
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/nt 5/i', $agent))  
-        {  
-          $os = self::Windows_2000;  
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/nt/i', $agent))  
-        {  
-          $os = self::Windows_NT;  
-        }  
-        else if (preg_match('/win/i', $agent) && preg_match('/32/i', $agent))  
-        {  
-          $os = self::Windows_32;  
-        }  
-        else if (preg_match('/Android/i', $agent)){
-          $os = self::Android;  
+    public static function get_os($Data=false){  
+
+        if(!$Data){
+            $agent = $_SERVER['HTTP_USER_AGENT'];  
+            $os = false;  
+            if (preg_match('/win/i', $agent) && strpos($agent, '95'))  
+            {  
+              $os = self::Windows_95;  
+            }  
+            else if (preg_match('/win 9x/i', $agent) && strpos($agent, '4.90'))  
+            {  
+              $os = self::Windows_95;    
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/98/i', $agent))  
+            {  
+              $os =  self::Windows_98; 
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/nt 6.0/i', $agent))  
+            {  
+              $os = self::Windows_Vista;  
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/nt 6.1/i', $agent))  
+            {  
+              $os = self::Windows_7;  
+            }  
+              else if (preg_match('/win/i', $agent) && preg_match('/nt 6.2/i', $agent))  
+            {  
+              $os = self::Windows_8;  
+            }else if(preg_match('/win/i', $agent) && preg_match('/nt 10.0/i', $agent))  
+            {  
+              $os = self::Windows_10;
+            }else if (preg_match('/win/i', $agent) && preg_match('/nt 5.1/i', $agent))  
+            {  
+              $os = self::Windows_XP;  
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/nt 5/i', $agent))  
+            {  
+              $os = self::Windows_2000;  
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/nt/i', $agent))  
+            {  
+              $os = self::Windows_NT;  
+            }  
+            else if (preg_match('/win/i', $agent) && preg_match('/32/i', $agent))  
+            {  
+              $os = self::Windows_32;  
+            }  
+            else if (preg_match('/Android/i', $agent)){
+              $os = self::Android;  
+            }
+            else if (preg_match('/linux/i', $agent))  
+            {  
+              $os = self::Linux;  
+            }  
+            else if (preg_match('/unix/i', $agent))  
+            {  
+              $os = self::Unix;  
+            }  
+            else if (preg_match('/sun/i', $agent) && preg_match('/os/i', $agent))  
+            {  
+              $os = self::SunOS;  
+            }  
+            else if (preg_match('/ibm/i', $agent) && preg_match('/os/i', $agent))  
+            {  
+              $os = self::IBM_OS_2;  
+            }  
+            else if (preg_match('/Mac/i', $agent) && preg_match('/PC/i', $agent))  
+            {  
+              $os = self::Macintosh;  
+            }  
+            else if (preg_match('/PowerPC/i', $agent))  
+            {  
+              $os = self::PowerPC;  
+            }  
+            else if (preg_match('/AIX/i', $agent))  
+            {  
+              $os = self::AIX;  
+            }  
+            else if (preg_match('/HPUX/i', $agent))  
+            {  
+              $os = self::HPUX;  
+            }  
+            else if (preg_match('/NetBSD/i', $agent))  
+            {  
+              $os = self::NetBSD;  
+            }  
+            else if (preg_match('/BSD/i', $agent))  
+            {  
+              $os = self::BSD;  
+            }  
+            else if (preg_match('/OSF1/i', $agent))  
+            {  
+              $os = self::OSF1;  
+            }  
+            else if (preg_match('/IRIX/i', $agent))  
+            {  
+              $os = self::IRIX;  
+            }  
+            else if (preg_match('/FreeBSD/i', $agent))  
+            {  
+              $os = self::FreeBSD;  
+            }  
+            else if (preg_match('/teleport/i', $agent))  
+            {  
+              $os = self::teleport;  
+            }  
+            else if (preg_match('/flashget/i', $agent))  
+            {  
+              $os = self::flashget;  
+            }  
+            else if (preg_match('/webzip/i', $agent))  
+            {  
+              $os = self::webzip;  
+            }  
+            else if (preg_match('/offline/i', $agent))  
+            {  
+              $os = self::offline;  
+            }  
+            else if (preg_match('/iPhone/i', $agent)){
+              $os = self::iPhone;  
+            }
+            else  
+            {  
+              $os = self::unknown_os;  
+            }  
+            return $os;   
         }
-        else if (preg_match('/linux/i', $agent))  
-        {  
-          $os = self::Linux;  
-        }  
-        else if (preg_match('/unix/i', $agent))  
-        {  
-          $os = self::Unix;  
-        }  
-        else if (preg_match('/sun/i', $agent) && preg_match('/os/i', $agent))  
-        {  
-          $os = self::SunOS;  
-        }  
-        else if (preg_match('/ibm/i', $agent) && preg_match('/os/i', $agent))  
-        {  
-          $os = self::IBM_OS_2;  
-        }  
-        else if (preg_match('/Mac/i', $agent) && preg_match('/PC/i', $agent))  
-        {  
-          $os = self::Macintosh;  
-        }  
-        else if (preg_match('/PowerPC/i', $agent))  
-        {  
-          $os = self::PowerPC;  
-        }  
-        else if (preg_match('/AIX/i', $agent))  
-        {  
-          $os = self::AIX;  
-        }  
-        else if (preg_match('/HPUX/i', $agent))  
-        {  
-          $os = self::HPUX;  
-        }  
-        else if (preg_match('/NetBSD/i', $agent))  
-        {  
-          $os = self::NetBSD;  
-        }  
-        else if (preg_match('/BSD/i', $agent))  
-        {  
-          $os = self::BSD;  
-        }  
-        else if (preg_match('/OSF1/i', $agent))  
-        {  
-          $os = self::OSF1;  
-        }  
-        else if (preg_match('/IRIX/i', $agent))  
-        {  
-          $os = self::IRIX;  
-        }  
-        else if (preg_match('/FreeBSD/i', $agent))  
-        {  
-          $os = self::FreeBSD;  
-        }  
-        else if (preg_match('/teleport/i', $agent))  
-        {  
-          $os = self::teleport;  
-        }  
-        else if (preg_match('/flashget/i', $agent))  
-        {  
-          $os = self::flashget;  
-        }  
-        else if (preg_match('/webzip/i', $agent))  
-        {  
-          $os = self::webzip;  
-        }  
-        else if (preg_match('/offline/i', $agent))  
-        {  
-          $os = self::offline;  
-        }  
-        else if (preg_match('/iPhone/i', $agent)){
-          $os = self::iPhone;  
-        }
-        else  
-        {  
-          $os = self::unknown_os;  
-        }  
-        return $os;    
+
+         return array_search($Data,self::$OsInfo);
     }  
 
     /**

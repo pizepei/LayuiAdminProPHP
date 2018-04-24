@@ -1,6 +1,6 @@
 <?php
 namespace common\authority;
-use think\Model;
+use common\Model;
 use think\Request;
 /**
  * 用户组
@@ -10,26 +10,6 @@ class AdminRole extends Model {
     protected $resultSetType = 'collection';
     protected $table = 'admin_role';
 
-    /**
-     * [getList 获取用户组列表]
-     * @Effect
-     * @param  [type] $page  [description]
-     * @param  [type] $limit [description]
-     * @param  [type] $whe   [description]
-     * @return [type]        [description]
-     */
-    public static function  getList($page,$limit,$whe)
-    {
-        $where = '';
-        $where=array();
-        if(!empty($whe)){
-            $where['email'] = $whe;
-        }
-        //实例化对象
-        $New = new static;
-        $Data =$New->where($where)->page("{$page},{$limit}")->select()->toArray();
-        return ['count'=>$New->where($where)->count(),'data'=>$Data];
-    }
     /**
      * [updataStatus 修改状态]
      * @Effect

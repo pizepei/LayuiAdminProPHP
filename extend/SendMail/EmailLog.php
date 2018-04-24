@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-23 15:45:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:45:17
+ * @Last Modified time: 2018-04-22 16:43:25
  */
 namespace SendMail;
 
@@ -26,7 +26,6 @@ class EmailLog extends Model {
             $Data['error'] = 0;
         }
         date_default_timezone_set("PRC");
-        // dump(date('Y-m-d H:i:s'));
         $request = \think\Request::instance();
         $ip = $request->ip();
         $log           = new static();

@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-03-29 15:15:33
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-22 00:10:10
+ * @Last Modified time: 2018-04-23 17:24:00
  */
     /**
      * [Mt_str 生成随机字符串]
@@ -24,7 +24,8 @@
 
         }else if($type == 4){
             $str = 'QWE1RTY4UIOP2ASDFG3H2JKL3Z3XCVBN67MQWERT1YU5IO4P7A0SDFG1HJKL7ZX7CVB8NMQW0ERTYUIOPA4SDFGHJ56KLZXC71VB';
-
+        }else if($type == 5){
+            $str = '15456898546332659789456321122545678798545454545661213215457899889895564541312157796325412354545646321';
         }
         $mt_str = '';
         $strlen = strlen($str)-1;
@@ -118,6 +119,37 @@
         }
         return strtotime($str) !== false;
     }
+
+
+    /**
+     * [addNumber 创建订单号]
+     * @Effect
+     * @param  [type] $type [类型]
+     */
+    function addNumber($type)
+    {
+          switch ($type)
+          {
+          case 1://临时订单
+                $type = 'L';
+              break;
+          case 2://系统后台
+                $type = 'A';
+
+              break;
+          case 3://用户前台
+                $type = 'U';
+              break;
+          case 4://短信流水
+                $type = 'M';
+              break;
+          default:
+              return false;
+          }
+          $str = 'HKETWNMUBXVI';
+          return $ordernumber = $type.str_shuffle($str{mt_rand(0,11)}.$str{mt_rand(0,11)}).date('ymdHis').str_shuffle(time());
+    }
+
     /**
      * [Result 判断并且返回结果给前端]
      * @Effect

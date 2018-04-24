@@ -1,6 +1,6 @@
 <?php
 namespace common\menu;
-use think\Model;
+use common\Model;
 /**
  * 登录用户模型
  */

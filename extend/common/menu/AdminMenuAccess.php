@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-04-11 15:07:14
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:30:50
+ * @Last Modified time: 2018-04-24 10:27:59
  */
 namespace common\menu;
-use think\Model;
+use common\Model;
 use think\Cache;
 class AdminMenuAccess extends Model {
 

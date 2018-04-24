@@ -3,11 +3,11 @@
  * @Author: pizepei
  * @Date:   2018-03-15 15:29:15
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:25:07
+ * @Last Modified time: 2018-04-24 10:27:49
  */
 
 namespace common\heillog;
-use think\Model;
+use common\Model;
 use think\Request;
 /**
  * SSR用户日志
