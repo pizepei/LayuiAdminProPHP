@@ -1,7 +1,7 @@
 <?php
 
 namespace app\login\model;
-use think\Model;
+use common\Model;
 use common\Safety\Safetylogin as Safety;
 use common\authority\AdminRole as Role; 
 use common\authority\AdminUserRole as UserRole; 
@@ -70,27 +70,27 @@ class MainUser extends Model {
 
         return $Data;
     }
-    /**
-     * [getList 获取用户组列表]
-     * @Effect
-     * @param  [type] $page  [description]
-     * @param  [type] $limit [description]
-     * @param  [type] $whe   [description]
-     * @return [type]        [description]
-     */
-    public static function  getList($page,$limit,$whe)
-    {
-        $where = '';
-        $where=array();
-        if(!empty($whe)){
-            $where['email'] = $whe;
-        }
-        //实例化对象
-        $New = new static;
-        $Data =$New->where($where)->page("{$page},{$limit}")->select()->toArray();
-        return ['count'=>$New->where($where)->count(),'data'=>$Data];
+    // /**
+    //  * [getList 获取用户组列表]
+    //  * @Effect
+    //  * @param  [type] $page  [description]
+    //  * @param  [type] $limit [description]
+    //  * @param  [type] $whe   [description]
+    //  * @return [type]        [description]
+    //  */
+    // public static function  getList($page,$limit,$whe)
+    // {
+    //     $where = '';
+    //     $where=array();
+    //     if(!empty($whe)){
+    //         $where['email'] = $whe;
+    //     }
+    //     //实例化对象
+    //     $New = new static;
+    //     $Data =$New->where($where)->page("{$page},{$limit}")->select()->toArray();
+    //     return ['count'=>$New->where($where)->count(),'data'=>$Data];
 
-    }
+    // }
 
     /**
      * [updataStatus 修改状态]

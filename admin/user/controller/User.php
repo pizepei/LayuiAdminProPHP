@@ -3,13 +3,13 @@
  * @Author: anchen
  * @Date:   2018-02-14 15:21:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:51:57
+ * @Last Modified time: 2018-04-24 10:11:28
  */
 
 
 namespace app\user\controller;
 use think\Controller;
-use custom\TerminalInfo;
+use common\custom\TerminalInfo;
 /**
  * 当前用户信息
  */
@@ -28,6 +28,7 @@ class User extends \common\VerifiController\AdminLoginVerifi
             'userTerminalInfo'=>'当前设备信息',
             'userTerminalData'=>'当前用户信息',
             'userTerminalIp'=>'当前设备IP信息',
+            'userLoginLog'=>'当前用户登录日志'
         ];
     }
     /**
@@ -54,7 +55,7 @@ class User extends \common\VerifiController\AdminLoginVerifi
      */
     public function userTerminalIp()
     {
-        return Result(TerminalInfo::getIp());
+        return Result([TerminalInfo::getIp()]);
 
         
     }
@@ -64,9 +65,20 @@ class User extends \common\VerifiController\AdminLoginVerifi
      */
     public function userTerminalData()
     {
-        return Result($this->UserData);
+        return Result([$this->UserData]);
 
     }
+    /**
+     * [userLoginLog 获取登录日志]
+     * @Effect
+     * @return [type] [description]
+     */
+    public function userLoginLog()
+    {
 
+
+
+
+    }
 
 }

@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-03-06 21:56:17
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 14:52:27
+ * @Last Modified time: 2018-04-24 10:53:22
  */
 namespace app\ssr\model;
-use think\Model;
+use common\Model;
 
 class User extends Model {
 
@@ -36,16 +36,6 @@ class User extends Model {
         'debug'       => false,
     ];
 
-    /**
-     * [getEnableAttr 账号状态获取器]
-     * @param  [type] $value [description]
-     * @return [type]        [description]
-     */
-    // public function getEnableAttr($value)
-    // {
-    //     $status = [0=>'禁用',1=>'正常'];
-    //     return $status[$value];
-    // }
 
     /**
      * [getTAttr 最后使用的时间]
@@ -86,24 +76,6 @@ class User extends Model {
         return floor($value/self::flow_gb);
     }
 
-    /**
-     * [getUserData 获取ssr用户数据]
-     * @return [type] [description]
-     */
-    public static function getUserData($page,$limit,$whe='')
-    {
-        $where='';
-        $where=array();
-        if(!empty($whe)){
-
-            $where['email'] = $whe;
-
-        }
-        //实例化对象
-        $UserData = new self;
-        $Data =$UserData->where($where)->page("{$page},{$limit}")->select()->toArray();
-        return ['count'=>$UserData->where($where)->count(),'data'=>$Data];
-    }
     /**
      * [updataEnable 更新账户状态]
      * @Effect

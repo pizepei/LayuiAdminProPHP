@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:51:34
+ * @Last Modified time: 2018-04-24 10:51:18
  */
 namespace app\authority\controller;
 use common\authority\AdminRole  as RoleName;
@@ -37,9 +37,9 @@ class Role extends \common\VerifiController\AdminLoginVerifi
         if(empty(input('whe'))){
             $whe = '';
         }else{
-            $whe = input('whe');
+            $whe['email'] = input('whe');
         }
-        return Result(RoleName::getList($page,$limit,$whe));
+        return Result(RoleName::getPageList($page,$limit,$whe));
     }
     /**
      * [updataStatus 修改用户组状态]

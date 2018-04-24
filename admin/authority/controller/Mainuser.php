@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-04 16:24:10
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:51:29
+ * @Last Modified time: 2018-04-24 10:49:08
  */
 namespace app\authority\controller;
 use app\login\model\MainUser   as User;
@@ -42,9 +42,9 @@ class Mainuser extends \common\VerifiController\AdminLoginVerifi
         if(empty(input('whe'))){
             $whe = '';
         }else{
-            $whe = input('whe');
+            $whe['email'] = input('whe');
         }
-        return Result(User::getList($page,$limit,$whe));
+        return Result(User::getPageList($page,$limit,$whe));
     }
     /**
      * [updataStatus 修改用户状态]

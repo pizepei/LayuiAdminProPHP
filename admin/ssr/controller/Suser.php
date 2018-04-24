@@ -45,9 +45,9 @@ class Suser extends \common\VerifiController\AdminLoginVerifi
         if(empty(input('whe'))){
             $whe = '';
         }else{
-            $whe = input('whe');
+            $whe['email'] = input('whe');
         }
-        return Result(User::getUserData($page,$limit,$whe));
+        return Result(User::getPageList($page,$limit,$whe));
 
     }
     /**

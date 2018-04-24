@@ -3,10 +3,10 @@
  * @Author: pizepei
  * @Date:   2018-03-16 11:06:45
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-16 10:31:01
+ * @Last Modified time: 2018-04-24 10:53:14
  */
 namespace app\ssr\model;
-use think\Model;
+use common\Model;
 
 class Indent extends Model {
 

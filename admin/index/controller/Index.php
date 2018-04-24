@@ -3,9 +3,12 @@ namespace app\index\controller;
 use Endroid\QrCode\QrCode;
 use think\Controller;
 use think\Db;
-use Redis\RedisModel;
+use common\Redis\RedisModel;
 use app\index\model\Login;
 use SendMail\Mail;
+use common\Safety\Safetylogin;
+use think\Loader;
+
 // class Index extends \VerifiController\AdminLoginVerifi
 /**
  * 首页
@@ -30,6 +33,14 @@ class Index extends Controller
     
     public function index()
     {
+        //生成密码
+        // $password = 'p123456';
+        // $Safetylogin = new Safetylogin('admin');
+        // $Safety = $Safetylogin->addPassword($password);
+
+        // dump($Safety);
+        // Loader::import('AlSms.api_demo.SmsDemo');
+
         return $this->fetch();
 
     }
@@ -54,6 +65,10 @@ class Index extends Controller
 
 
     public function cscs(){
+
+
+
+
         // echo $_SERVER['HTTP_USER_AGENT'];
         dump(\custom\TerminalInfo::getArowserPro('arr'));
         // dump($this->UserData);
