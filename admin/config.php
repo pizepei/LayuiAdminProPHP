@@ -337,4 +337,24 @@ return [
         ],
     ],
 
+
+   //阿里云短信配置
+    'CodeSMS'=>        [
+        'accessKeyId'=>'',
+        'accessKeySecret'=>'',
+        'setSignName'=>'Lifestyle大嘴云', //签名名称
+    ],
+
+    //阿里云短信配置  模板CODE
+    'CodeSMSsetTemplateCode'=>   [
+        '',//安全验证码  您的验证码：${code}，您正进行身份验证，打死不告诉别人！  您的校验码：${code}，您正在注册成为会员，感谢您的支持！
+        '',//验证码为：${code}，您正在注册成为平台会员，感谢您的支持！
+        '',//您有新的订单待处理，当前状态：${status}，订单摘要:${remark}，请及时处理。
+    ],
+
+
+
+
+
+
 ];
