@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 11:40:06
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:51:28
+ * @Last Modified time: 2018-04-24 17:59:49
  */
 namespace app\authority\controller;
 use common\authority\AdminMenuAccess as Access;
@@ -47,7 +47,7 @@ class Menuaccess extends \common\VerifiController\AdminLoginVerifi
        $arr=[67,92,94,95,68,69];
 
        if(in_array($Aid,$arr)){
-            Result(['code'=>1,'msg'=>'测试环境禁止这个操作']);
+            return Result(['code'=>1,'msg'=>'测试环境禁止这个操作']);
        }
 
        return  Result(Access::updateList($Uid,$Type,$Aid,$Status));

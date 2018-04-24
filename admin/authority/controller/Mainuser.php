@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-04 16:24:10
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-24 10:49:08
+ * @Last Modified time: 2018-04-24 17:59:41
  */
 namespace app\authority\controller;
 use app\login\model\MainUser   as User;
@@ -78,7 +78,7 @@ class Mainuser extends \common\VerifiController\AdminLoginVerifi
         (int)$Uid = input('uid');
         (int)$Rid = input('rid');
         if(!AdminRole::get($Rid)){
-            Result(['code'=>1,'msg'=>'没有这个用户组']);
+            return Result(['code'=>1,'msg'=>'没有这个用户组']);
         }
         
         return Result(AdminUserRole::updataRole($Rid,$Uid));
