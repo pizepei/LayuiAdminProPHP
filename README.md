@@ -131,8 +131,9 @@ www  WEB部署目录（或者子目录）
     ~~~  
    + 数据模型统一继承在\extend\common\目录下增加基础模型类common\Model，继承后有基础分页查询方法getPageList($page,$limit,$whe,$hidden=[])可用 $whe查询搜索条件【为键值对数组】、$hidden限制输出字段【为索引数组】。
     
-    
-    
+ #### 路由配置与RESTful规范：
+   + 路由配置---在应用下config.php中配置route_config_file=['route'.DS.'模块名','route'.DS.'模块名']来为应用下各模块配置单独的路由规则文件，路由各种文件在应用目录下的route文件夹下以【模块.php】命名.
+   + RESTful规范。
  #### 日志处理：
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
