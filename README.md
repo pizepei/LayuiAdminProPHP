@@ -104,7 +104,9 @@ www  WEB部署目录（或者子目录）
   API数据规范：控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
   
   + 所有控制器都必须遵守如下规范，这是为了方便RBAC系统读取当前应用下所有的方法做权限列表（如果想隐藏控制器与权限不做下方规则定义方可）。
-    ~~~
+  
+    ~~~
+    
     namespace app\authority\controller;
     /**
      * 系统用户组管理       （这里必须加以说明控制器功能）
@@ -127,12 +129,17 @@ www  WEB部署目录（或者子目录）
         }
      }  
     ~~~  
+   + 数据模型统一继承在\extend\common\目录下增加基础模型类common\Model，继承后有基础分页查询方法getPageList($page,$limit,$whe,$hidden=[])可用 $whe查询搜索条件【为键值对数组】、$hidden限制输出字段【为索引数组】。
+    
+    
+    
  #### 日志处理：
    + 这里在\thinkphp\library\think\log\driver目录下增加MysqFile.php驱动类使用MySQL记录系统错误日志（如果不是要可在应用的config.php中修改）MysqFile.php只是对tp原有的驱动类进行了简单的修改以达到使用mysql记录系统基本的错误（使用extend\heillog\ErrorLog.php类写入）。
    + 建议尽可能的对用户、管理员的所有操作进行记录。
  #### 常用方法：
   + 控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
   + app\login\model\MainUser 类的 MainUser::setUserData($id,$type=false)，当type=false时只获取用户的数据，为true时获取并且更新Redis中的用户数据（排除了密码数据）。
+  + 分页查询方法getPageList($page,$limit,$whe,$hidden=[])可用 $whe查询搜索条件【为键值对数组】、$hidden限制输出字段【为索引数组】，注意必须是继承common\Model的模型才可以使用。
  #### 日志处理：
 #### think 命令行工具：
 + 1、需要在下面根目录下的think 文件 中配置
