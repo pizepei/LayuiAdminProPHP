@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-22 00:09:07
+ * @Last Modified time: 2018-05-03 12:08:50
  */
 namespace common\VerifiController;
 use think\Controller;
@@ -113,15 +113,20 @@ class AdminLoginVerifi extends Controller
         $muduel = []; //模块
         $controllers = []; //控制器
         while (($file = readdir($dir)) !== false) {
-            $mfile = $bangs . $file;
-            if (is_dir($mfile) && $file != '.' && $file != '..' && $file != 'common') {
-                $dirs[] = $mfile . '/controller'; //拼接目录
+            if($file != 'route'){
+                $mfile = $bangs . $file;
+                if (is_dir($mfile) && $file != '.' && $file != '..' && $file != 'common') {
+                    $dirs[] = $mfile . '/controller'; //拼接目录
+                }
+
             }
+
         }
-        // dump($dirs);
+
         //列出所有的目录数据
         foreach ($dirs as $v) {
             $dir = opendir($v);
+            // dump($dir);
             while (($controller = readdir($dir)) !== false) {
                 if (!is_dir($controller)) {
                     $str = 'app/' . str_replace($bangs, '', $v) . '/' . str_replace('.php', '', $controller);
@@ -140,8 +145,7 @@ class AdminLoginVerifi extends Controller
 
         Cache::set('ADMIN_RBAC',$controllers,3);
         return $controllers;
-        // Result(['code'=>0,'msg'=>'更新系统RBAC数据完成^_^']);
-
+        // return Result(['code'=>0,'msg'=>'更新系统RBAC数据完成^_^']);
     }
     /**
      * [getRoute 获取路由]
