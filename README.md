@@ -141,7 +141,21 @@ www  WEB部署目录（或者子目录）
   + 控制器中所有的API数据（针对LayuiAdmin的）统一使用Result（）助手函数（helper.php）。
   + app\login\model\MainUser 类的 MainUser::setUserData($id,$type=false)，当type=false时只获取用户的数据，为true时获取并且更新Redis中的用户数据（排除了密码数据）。
   + 分页查询方法getPageList($page,$limit,$whe,$hidden=[])可用 $whe查询搜索条件【为键值对数组】、$hidden限制输出字段【为索引数组】，注意必须是继承common\Model的模型才可以使用。
- #### 日志处理：
+ ####  WEB IM方案 长链接（websocket、GatewayWorker）：
+ + WEB IM方案前端所以LayIM，后端使用ThinkPHP5+GatewayWorker结合构建。
+ 
+ + 前端具体在/public/static/index/src/views/index.html中（这里注意var socket = new WebSocket('wss://demo.heil.red:8282');中的地址：1、wss是在https情况下使用的同时必须使用域名，如果你本地环境请修改我ws://127.0.0.1:8282）。
+ 
+ + GatewayWorker具体在GatewayWorker/Applications/YourApp/下的三个文件需要根据你的实际环境进行配置（特别注意当tp环境与GatewayWorker环境不在统一网络下）start_gateway.php文件中配置ssl（https证书）。
+ 
+ + 启动GatewayWorker 使用命令行进入到GatewayWorker目录 使用 php start.php start -d命令 没有-d是调试命令。
+ 
+ + gatewayclient（Gateway客户端）/vendor/workerman/gatewayclient/Gateway.php。
+ 
+ + ThinkPHP5在IM模块只的IM控制器中有简单的业务代码。
+ 
+ + GatewayWorker[文档](http://doc2.workerman.net/326106) 、layim[文档](http://www.layui.com/doc/modules/layim.html)。
+  
 #### think 命令行工具：
 + 1、需要在下面根目录下的think 文件 中配置
 ~~~
