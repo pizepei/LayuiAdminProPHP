@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-02-08 17:31:19
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-21 23:51:49
+ * @Last Modified time: 2018-05-06 15:59:00
  */
 namespace app\menu\controller;
 use common\menu\AdminMenu;
@@ -38,6 +38,7 @@ class Menu extends \common\VerifiController\AdminLoginVerifi
      */
     public function getList()
     {
+        
         // echo $this->UserData['login_name'];
         return Result(AdminMenu::getMenu());
         // $this->success('','',AdminMenu::getMenu());

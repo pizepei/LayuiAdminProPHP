@@ -1,6 +1,7 @@
 <?php
 namespace common\menu;
 use common\Model;
+
 use think\Cache;
 use common\authority\AdminMenuAccess;
 /**

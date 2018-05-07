@@ -3,7 +3,7 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:23:17
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-24 10:27:22
+ * @Last Modified time: 2018-05-07 08:26:18
  */
 namespace common\authority;
 use common\Model;
@@ -32,6 +32,7 @@ class AdminRouteAccess extends Model {
             'menu' => '菜单系统',
             'ssr'=>'SSR系统',
             'user' => '用户信息',
+            'im'=>'WEBIM',
         ];
         if (isset($arr[$k])) {
             return $arr[$k];

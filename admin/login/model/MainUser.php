@@ -25,7 +25,7 @@ class MainUser extends Model {
         return $status[$value];
     }
     /**
-     * [getGradeAttr 会员等级获取器]
+     * [getGradeAttr 用户组获取器]
      * @Effect
      * @param  [type] $value [description]
      * @return [type]        [description]
@@ -153,12 +153,16 @@ class MainUser extends Model {
         return $this->hasOne('LoginMainConfig','uid','id');
     }
 
+    /**
+     * [get 获取用户信息]
+     * @Effect
+     * @param  [type] $Id [description]
+     * @return [type]     [description]
+     */
+    public static function getInfo($Id){
 
+        static::get($Id,'LoginMainConfig');
 
-
-
-
-
-
+    }
 
 }

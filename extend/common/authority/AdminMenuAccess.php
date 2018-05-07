@@ -3,15 +3,13 @@
  * @Author: pizepei
  * @Date:   2018-04-12 15:28:02
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-04-24 10:27:01
+ * @Last Modified time: 2018-05-07 08:42:10
  */
 namespace common\authority;
 use common\Model;
 use think\Cache;
 use common\authority\AdminRole;
 use common\authority\AdminRoleMenuAccess as RoleMenuAccess;
-
-
 
 /**
  * 权限
@@ -27,6 +25,8 @@ class AdminMenuAccess extends Model {
      */
     public static function  getAccess($gid = 1)
     {
+                //清除 权限缓存
+        // Cache::clear('AdminAccess');
         $arr = array();
         $RoleArr = array();
 

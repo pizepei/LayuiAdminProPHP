@@ -6,15 +6,19 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'think\\worker\\' => array($vendorDir . '/topthink/think-worker/src'),
     'think\\composer\\' => array($vendorDir . '/topthink/think-installer/src'),
     'think\\' => array($baseDir . '/thinkphp/library/think'),
     'app\\' => array($baseDir . '/application'),
+    'Workerman\\' => array($vendorDir . '/workerman/workerman', $vendorDir . '/workerman/workerman-for-win'),
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Component\\PropertyAccess\\' => array($vendorDir . '/symfony/property-access'),
     'Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),
     'Symfony\\Component\\Inflector\\' => array($vendorDir . '/symfony/inflector'),
     'Qiniu\\' => array($vendorDir . '/qiniu/php-sdk/src/Qiniu'),
     'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
+    'GatewayWorker\\' => array($vendorDir . '/workerman/gateway-worker/src'),
+    'GatewayClient\\' => array($vendorDir . '/workerman/gatewayclient'),
     'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qrcode/src'),
     'DeviceDetector\\' => array($vendorDir . '/piwik/device-detector'),
 );

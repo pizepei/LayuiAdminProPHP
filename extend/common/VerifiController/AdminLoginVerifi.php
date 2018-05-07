@@ -3,7 +3,7 @@
  * @Author: anchen
  * @Date:   2018-02-10 22:57:52
  * @Last Modified by:   pizepei
- * @Last Modified time: 2018-05-03 12:08:50
+ * @Last Modified time: 2018-05-07 10:32:51
  */
 namespace common\VerifiController;
 use think\Controller;
