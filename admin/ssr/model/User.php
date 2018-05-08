@@ -21,13 +21,13 @@ class User extends Model {
         // 数据库类型
         'type'        => 'mysql',
         // 服务器地址
-        'hostname'    => 'demo.heil.red',
+        'hostname'    => '',
         // 数据库名
-        'database'    => 'demo_heil_ssr',
+        'database'    => '',
         // 数据库用户名
-        'username'    => 'demo_heil_ssr',
+        'username'    => '',
         // 数据库密码
-        'password'    => '2mWnPHhmxF4NEWEK',
+        'password'    => '',
         // 数据库编码默认采用utf8
         'charset'     => 'utf8',
         // 数据库表前缀
