@@ -13,7 +13,6 @@
      */
     function  Mt_str($vel,$type=1)
     {
-
         //生成随机字符串
         if($type == 2){
             $str = 'Q2Ww3E4Rr5aTd6Yef7U8gI9Oxczcghh0hP3Aj4S5D6kF7Gtsdj8Hy9J2u3K4L5kZ6Xl72CsV3BNM';
@@ -25,7 +24,12 @@
         }else if($type == 4){
             $str = 'QWE1RTY4UIOP2ASDFG3H2JKL3Z3XCVBN67MQWERT1YU5IO4P7A0SDFG1HJKL7ZX7CVB8NMQW0ERTYUIOPA4SDFGHJ56KLZXC71VB';
         }else if($type == 5){
-            $str = '15456898546332659789456321122545678798545454545661213215457899889895564541312157796325412354545646321';
+            $str = '154568985463326597894563879854546121321545789988989556454131215779632541246321';
+        }else if($type == 6){
+
+            $mtime=explode(' ',microtime());
+            $startTime=$mtime[1]+ str_replace(".","",$mtime[0]);
+            $str = '1234798765'.$startTime.'57896512369874563'.$startTime;
         }
         $mt_str = '';
         $strlen = strlen($str)-1;
@@ -33,6 +37,11 @@
         for ($i=0; $i <$vel ; $i++) { 
             $mt_str .= $str{mt_rand(0,$strlen)};
         }
+        //微信二维码测试不能0开头
+        if( $type == 6){
+            $mt_str =  ltrim($mt_str,0);
+        }
+        
         return $mt_str;
     } 
 
@@ -211,6 +220,7 @@
 
             if($Data){
                 $Result['code'] = 0;
+                $Result['data'] = $Data;
                 $Result['msg'] = '操作成功';
             }else{
                 $Result['code'] = 1;

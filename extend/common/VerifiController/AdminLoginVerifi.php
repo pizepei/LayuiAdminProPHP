@@ -50,6 +50,7 @@ class AdminLoginVerifi extends Controller
         $Safetylogin = new Safetylogin('admin');
 
         $Data = explode('.',$this->access_token);
+
         if(count($Data) != 3){
            $this->error('非法请求');
             echo json_encode(['code'=>1001]);

@@ -83,9 +83,8 @@ class Safetylogin{
      * @param  [type] $rememberTime [快捷登录参数]
      * @param  string $iat          [统一时间戳]
      */
-    public function addJWT($user,$lastTime,$rememberTime,$iat='')
+    public function addJWT($user,$lastTime,$rememberTime,$iat='',$http_agent)
     {
-
 
         $config = $this->config;
         
@@ -106,7 +105,8 @@ class Safetylogin{
                 'exp'=>$exp,//jwt的过期时间，这个过期时间必须要大于签发时间
                 'iat'=>$iat,//jwt的签发时间
                 'disp'=>$disp,//jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
-                'AGENT'=>md5($_SERVER['HTTP_USER_AGENT']),//保存登录设备的基本标识符 简单的防止复制链接登录
+//                'AGENT'=>md5($_SERVER['HTTP_USER_AGENT']),//保存登录设备的基本标识符 简单的防止复制链接登录
+                'AGENT'=>$http_agent,//保存登录设备的基本标识符 简单的防止复制链接登录
             ])
         );
         //拼接签名
@@ -221,7 +221,6 @@ class Safetylogin{
         if($AGENT != md5($_SERVER['HTTP_USER_AGENT'])){
             return ['error'=>3,'msg'=>'非法切换访问设备','data'=>'AGENT验证失败','uid'=>$RedisData['sub']];
         }
-
         return ['error'=>0,'msg'=>'验证通过','data'=>$RedisData['sub']];
     }
 
