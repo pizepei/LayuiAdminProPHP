@@ -31,12 +31,15 @@
   <script src="./static/index/start/layui/layui.js"></script>
 
   <script>
-
+      function ini_WebSocket(){
+          socket = new WebSocket('wss://demo.heil.red:8282');
+          return socket;
+      }
   layui.config({
 
     base: './static/index/dist/' //指定 layuiAdmin 项目路径，本地开发用 src，线上用 dist
 
-    ,version: '1.0.0-beta1002333444'
+    ,version: '1.0.0-beta10'
 
   }).use('index');
 

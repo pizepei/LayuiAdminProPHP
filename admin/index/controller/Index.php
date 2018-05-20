@@ -9,6 +9,7 @@ use SendMail\Mail;
 use common\Safety\Safetylogin;
 use think\Loader;
 use GatewayClient\Gateway;
+use WechatBrief\Port\Ticket;
 
 // class Index extends \VerifiController\AdminLoginVerifi
 /**
@@ -109,4 +110,55 @@ class Index extends Controller
         Gateway::sendToGroup($group_id, json_encode(['type'=>'im3g']));
 
     }
+
+
+    public function wx()
+    {
+
+            //包含SHALApi.php类
+            // $token = new \WechatBrief\Port\SHALApi('12345');
+
+             // $ts= $token->control();
+            // echo $ts;
+            //更新 AccessToken
+            // $AccessToken  = new \WechatBrief\Port\AccessToken();
+            // dump($AccessToken->access_token());
+
+            // $Ticket  = new \WechatBrief\Port\Ticket('皮皮虾');
+            // dump($Ticket->Ticket());
+            // echo $_GET['echostr'];
+            // // 接口验证
+
+            // file_put_contents('ttttt.txt',json_encode(   input()));
+            // //  $aaa = '\Org\Wechat\Module\keyword\keywordModule';
+            // //  回复接口
+            $token = new \WechatBrief\Port\ReplyApi;
+
+    }
+
+    public function wx2()
+    {
+
+            //包含SHALApi.php类
+            // $token = new \WechatBrief\Port\SHALApi('12345');
+
+             // $ts= $token->control();
+            // echo $ts;
+            //更新 AccessToken
+            // $AccessToken  = new \WechatBrief\Port\AccessToken();
+            // dump($AccessToken->access_token());
+
+            // $Ticket  = new \WechatBrief\Port\Ticket('皮皮虾');
+            // dump($Ticket->Ticket());
+            // echo $_GET['echostr'];
+            // // 接口验证
+
+            // file_put_contents('ttttt.txt',json_encode(   input()));
+            // //  $aaa = '\Org\Wechat\Module\keyword\keywordModule';
+            // //  回复接口
+
+            echo '<img alt="" src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.Ticket::get_ticket(Mt_str(5,6),1,700,2)['ticket'].'" width="200" id="pay_img" style="overflow: hidden; display:;">';
+
+    }
+
 }
