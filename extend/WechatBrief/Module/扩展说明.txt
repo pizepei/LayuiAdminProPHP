@@ -1,0 +1,25 @@
+这里是微信应用程的拓展目录
+
+每个拓展以独立的目录存在
+注意；
+	目录名称为唯一
+	目录名称必须首字母大写 
+	目录名称必须与数据库只的对应（数据库中可不区分大小写）
+	新拓展 命名规范 
+		命名空间
+		比如：
+			拓展名称为 Example
+			类名称必须为 ExampleModule.class.php
+			命名空间必须为：Org\Wechat\Module\Example
+
+特别目录
+	Cache	缓存目录（如果环境不支持redis就把数据保存在txt文件中）
+	TheDefault  默认的系统（关键字）自动回复模块，不可删除
+	PublicApi 微信公共api拓展函数、默认有 有道翻译、
+
+拓展目录规范：
+	1、拓展目录只必须包含安装类 Install.calss.php
+	2、必须带有拓展说明文件
+	3、拓展文件必须遵守TP框架的命名空间规则
+		    namespace Think\Wechat\Module\拓展目录\;
+    		    use Think\Wechat\Module\拓展目录;
