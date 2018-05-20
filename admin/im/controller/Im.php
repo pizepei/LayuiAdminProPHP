@@ -61,11 +61,10 @@ class Im extends \common\VerifiController\AdminLoginVerifi
     {
         $namearr=['皮皮虾','小马哥','马哥','大马哥','小气鬼','绝地求生','刺激战场','买买提','阿里巴巴','泽','皮卡丘','丘比特'];
 
-
         //设置id
         $id = md5($this->access_token);
 
-        //cache('IM_mine_members',null);
+        // cache('IM_mine_members',null);
         //获取缓存
         $IM_mine_members = cache('IM_mine_members');
         if(!$IM_mine_members){
@@ -83,6 +82,8 @@ class Im extends \common\VerifiController\AdminLoginVerifi
                 $province = $ipinfo['IpInfo']['province'];
                 $city = $ipinfo['IpInfo']['city'];
                 $username = $province.$city.$namearr[mt_rand(0,11)];
+                // $username = $province.$city;
+                
             }else{
                 $username = '地头蛇'.$namearr[mt_rand(0,11)];
             }
@@ -91,7 +92,7 @@ class Im extends \common\VerifiController\AdminLoginVerifi
             $mine = [
                 'username'=>$username,
                 'id'=>$id,
-                'status'=>'status', //在线状态 online：在线、hide：隐身
+                'status'=>'online', //在线状态 online：在线、hide：隐身
                 'sign'=>$ipinfo["Ipanel"].$ipinfo["Os"],
                 'avatar'=>'../static/pic/'.mt_rand(0,14).'.jpg',
             ];
@@ -147,10 +148,6 @@ class Im extends \common\VerifiController\AdminLoginVerifi
         array_shift($badword1);
         $mine['content'] = strtr($mine['content'], $badword1); 
 
-
-
-
-
         //"friend"   "group" 
         if($to['type'] == 'friend'){
             $data = json_encode(['emit'=>'sendMessage','data'=>[
@@ -163,7 +160,6 @@ class Im extends \common\VerifiController\AdminLoginVerifi
                 'fromid'=>$mine['id'],
                 'timestamp'=>time(),
             ]]);
-
             // 向任意uid的网站页面发送数据
             Gateway::sendToUid($to['id'], $data);
 
