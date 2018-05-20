@@ -57,17 +57,20 @@ class MainUser extends Model {
      * @param  [type] $Password [description]
      * @return [type]           [description]
      */
-    public function  loginAction($name)
+    public function  loginAction($name,$type='name')
     {
-        $where['login_name'] = $name;
+        if($type=='id'){
+            $where['id'] = $name;
+        }else{
+            $where['login_name'] = $name;
+        }
+
         $where['status'] = 0;
         $where['isdel'] = 0;
         //获取数据
         $Data = $this->where($where)
             ->field('id,pwd_salt,pwd_hash,login_error_count,combo,grade,user_group,login_error_count_time')
             ->find();
-
-
         return $Data;
     }
     // /**

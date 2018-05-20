@@ -111,12 +111,13 @@ class Login extends Model {
         //sub所面向的用户（用户id） 
         //iat 的签发时间 
         //jti 唯一身份标识（一次性token）主要用来作为一次性token,从而回避重放攻击。
-        $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time);
+        $http_agent = md5($_SERVER['HTTP_USER_AGENT']);
+        $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time,$http_agent);
 
         //判断 redis 存储结果
         if(!$RedisLogin ->set_key_token($Signature)){
             // 错误 尝试
-            $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time);
+            $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time,$http_agent);
             //再次判断
             if($RedisLogin ->set_key_token($Signature)){
                 Log::addLog(['id'=>$User->id,'info'=>'redis 存储JWT失败'],1);
@@ -133,6 +134,112 @@ class Login extends Model {
         return ['code'=>0,'msg'=>'登录成功','access_token'=>$Signature['header'].'.'.$Signature['playload'].'.'.$Signature['signature']];
 
     }
+
+    /**
+     * [loginActionRedisQr 登录数据获取方法]
+     * @Effect
+     * @param  [type] $name     [description]
+     * @param  [type] $Password [description]
+     * @return [type]           [description]
+     */
+    public function  loginActionRedisQr($name,$remember,$rememberTime,$http_agent)
+    {
+        // 初始化时间（登录相关全局都使用这个）
+        $this->Time =time();
+        $lastTime = 'off';
+        if($remember != 0){
+            if($rememberTime <=1 || $rememberTime >30){
+                return ['code'=>1,'msg'=>'非法的临时登录时间'];
+            }
+            $lastTime = $this->Time;
+        }
+
+        $Main = new Main;
+        //获取数据
+        $User = $Main->loginAction($name,'id');
+
+        //判断获取数据是否有问题  （有没有这个用户）
+        if(!$User)return ['code'=>1,'msg'=>'没有用户'];
+
+
+        //判断是否超过登录限制
+        //       密码错误次数    >= 系统设置       同时
+        if(($User->login_error_count >=self::login_error_count) ){
+            //当前时间戳 - 上次错误时间戳    <= 系统设置7200
+            if(($this->Time-strtotime($User->login_error_count_time)) <= self::login_error_count_time){
+
+                if($User->login_error_count >self::login_error_count){
+
+                    $infoData = '24小时内密码错误过多'.'限制登陆'.(self::login_error_count_time/(60*60)).'小时';
+                    Log::addLog(['id'=>$User->id,'info'=>$infoData],1);
+                    return ['code'=>1,'msg'=>'限制登陆','data'=>$infoData];
+                }
+
+                $infoData = '密码错误超过'.self::login_error_count.'次'.'限制登陆'.(self::login_error_count_time/(60*60)).'小时';
+                Log::addLog(['id'=>$User->id,'info'=>$infoData],1);
+                return ['code'=>1,'msg'=>$infoData];
+            }
+        }
+
+        //实例化 密码安全类
+        $Safety = new Safety('admin');
+
+
+        //获取登录配置数据
+        $ConfigLogin = $User->LoginMainConfig;
+        // 获取有效期配置
+        if($lastTime == 'off'){
+            $rememberTime = $ConfigLogin->overdue;
+        }else{
+            $rememberTime = $rememberTime*60;
+        }
+
+        //获取同时登录设备数量
+        $login_count =$ConfigLogin->login_count;
+
+        // 获取现在同时登录设备数量
+        $RedisLogin = new RedisLogin(config('admin_login_redis'));
+
+        $Rlogin_count =$RedisLogin->get_key_count($User->id);
+
+        //判断是否超过登录限制
+        if($Rlogin_count >$login_count){
+
+            $infoData = '超过同时在线上限'.'限制在线'.$login_count.'|在线'.$Rlogin_count;
+            Log::addLog(['id'=>$User->id,'info'=>$infoData],1);
+            return ['code'=>1,'msg'=>'超过同时在线上限'];
+        }
+
+        //生成 JWT
+        //signature 唯一签名
+        //sub所面向的用户（用户id）
+        //iat 的签发时间
+        //jti 唯一身份标识（一次性token）主要用来作为一次性token,从而回避重放攻击。
+
+        $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time,$http_agent);
+
+        //判断 redis 存储结果
+        if(!$RedisLogin ->set_key_token($Signature)){
+            // 错误 尝试
+            $Signature = $Safety->addJWT($User->id,$lastTime,$rememberTime,$this->Time,$http_agent);
+            //再次判断
+            if($RedisLogin ->set_key_token($Signature)){
+                Log::addLog(['id'=>$User->id,'info'=>'redis 存储JWT失败'],1);
+
+                return ['code'=>1,'msg'=>'请稍后再尝试[loo1]'];
+            }
+        }
+
+        //更新redis 中的用户数据
+        Main::setUserData($User->id,true);
+
+        //写入日志
+        Log::addLog(['id'=>$User->id,'info'=>'登录成功'],0);
+        return ['code'=>0,'msg'=>'登录成功','access_token'=>$Signature['header'].'.'.$Signature['playload'].'.'.$Signature['signature']];
+
+    }
+
+
 
     /**
      * [verdictLoginCount 判断是否超过同时在线上限制]
