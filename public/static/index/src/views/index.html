@@ -512,142 +512,90 @@ layui.use(['admin', 'layim'], function(){
 
   ,router = layui.router();
 
-
-
-  
-
   layim = layui.layim;
 
   
-
-
-
   //基础配置
-
   layim.config({
-
- 
+    //初始化接口
 
     init: {
-
       url: '/im/im/GetUserInfo' //接口地址（返回的数据格式见下文）
-
       ,type: 'get' //默认get，一般可不填
-
       ,data: {access_token: layui.data('layuiAdmin').access_token} //额外参数
-
-
-
     } //获取主面板列表信息，下文会做进一步介绍
 
- 
 
     //获取群员接口（返回的数据格式见下文）
-
     ,members: {
-
       url: '/im/im/getMembers' //接口地址（返回的数据格式见下文）
-
       ,type: 'get' //默认get，一般可不填
-
       ,data: {access_token: layui.data('layuiAdmin').access_token} //额外参数
-
     }
-
     
-
-    //上传图片接口（返回的数据格式见下文），若不开启图片上传，剔除该项即可
-
     ,uploadImage: {
-
-      url: '' //接口地址
-
-      ,type: 'post' //默认post
-
-    } 
-
-    
-
-    //上传文件接口（返回的数据格式见下文），若不开启文件上传，剔除该项即可
-
-    ,uploadFile: {
-
-      url: '' //接口地址
-
-      ,type: 'post' //默认post
-
+      url: '' //（返回的数据格式见下文）
+      ,type: '' //默认post
     }
-
-    //扩展工具栏，下文会做进一步介绍（如果无需扩展，剔除该项即可）
-
-    ,tool: [{
-
-      alias: 'code' //工具别名
-
-      ,title: '代码' //工具名称
-
-      ,icon: '&#xe64e;' //工具图标，参考图标文档
-
-    }]
-
+    ,uploadFile: {
+      url: '' //（返回的数据格式见下文）
+      ,type: '' //默认post
+    }
     
-
-    // ,msgbox: layui.cache.dir + 'css/modules/layim/html/msgbox.html' //消息盒子页面地址，若不开启，剔除该项即可
-
-    // ,find: layui.cache.dir + 'css/modules/layim/html/find.html' //发现页面地址，若不开启，剔除该项即可
-
-    // ,chatLog: layui.cache.dir + 'css/modules/layim/html/chatlog.html' //聊天记录页面地址，若不开启，剔除该项即可
-
+    ,isAudio: true //开启聊天工具栏音频
+    ,isVideo: true //开启聊天工具栏视频
+    
+    //扩展工具栏
+    ,tool: [{
+      alias: 'code'
+      ,title: '代码'
+      ,icon: '&#xe64e;'
+    }]
+    
+    //,brief: true //是否简约模式（若开启则不显示主面板）
+    
+    //,title: 'WebIM' //自定义主面板最小化时的标题
+    //,right: '100px' //主面板相对浏览器右侧距离
+    //,minRight: '90px' //聊天面板最小化时相对浏览器右侧距离
+    ,initSkin: '3.jpg' //1-5 设置初始背景
+    //,skin: ['aaa.jpg'] //新增皮肤
+    //,isfriend: false //是否开启好友
+    //,isgroup: false //是否开启群组
+    //,min: true //是否始终最小化主面板，默认false
+    //,notice: true //是否开启桌面消息提醒，默认false
+    //,voice: false //声音提醒，默认开启，声音文件为：default.mp3
+    
+    ,msgbox: '/layim/demo/msgbox.html' //消息盒子页面地址，若不开启，剔除该项即可
+    ,find: '/layim/demo/find.html' //发现页面地址，若不开启，剔除该项即可
+    ,chatLog: '/layim/demo/chatlog.html' //聊天记录页面地址，若不开启，剔除该项即可
+    
   });
-
-
-
 
 
 layim.on('sendMessage', function(res){
 
   console.log(res); 
 
-
-
     var mine = res.mine; //包含我发送的消息及我的信息
 
     var to = res.to; //对方的信息
-
-
-
     //请求
 
     admin.req({
-
       url: '/im/im/sendMessage' //实际使用请改成服务端真实接口
-
       ,data: {
-
         mine: JSON.stringify(mine),//包含我发送的消息及我的信息
-
         to:JSON.stringify(to) //对方的信息
-
       }
-
       ,done: function(res){        
-
         // layer.msg('验证码已成功发送至您的手机', {
-
         //   offset: '15px'
-
         //   ,icon: 1
-
         //   ,time: 3000
-
         // });
-
       }
 
     });
-
-
-
 
 
 // layim.getMessage({
@@ -672,17 +620,11 @@ layim.on('sendMessage', function(res){
 
 // });
 
-
-
-
-
 });
 
 
 
 layim.on('ready', function(options){
-
-  console.log(options);
 
 
   var socket = new WebSocket('wss://demo.heil.red:8282');
@@ -690,61 +632,39 @@ layim.on('ready', function(options){
   socket.onmessage = function(e){
 
       // console.log(e);
-
       // json数据转换成js对象
-
       var data = eval("("+e.data+")");
 
       var type = data.emit || '';
 
       console.log(data.data);
-
-      
-
     //res为接受到的值，如 {"emit": "messageName", "data": {}}
 
     //emit即为发出的事件名，用于区分不同的消息
-
-
-
       switch(type){
 
           // Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
-
           case 'init':
-
               // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-
               $.post('/iM/iM/initializeIm', {client_id: data.client_id,access_token: layui.data('layuiAdmin').access_token}, function(data){}, 'json');
-
               break;
 
           case 'sendMessage'://发送普通信息
 
-
-
             if(data.data.fromid != options.mine.id){
-
                 layim.getMessage(data.data); //res.data即你发送消息传递的数据
-
             }
+              break;
+          case 'addList'://添加好友/群到主面板
 
-
+              break;
 
           default :
-
               // alert(e.data);
-
       }
-
   };
 
-
-
 });
-
-
-
 
 
 layim.on('members', function(data){
@@ -753,21 +673,7 @@ layim.on('members', function(data){
 
 });
 
-
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
 
 layui.use('console', layui.factory('console'));
 
