@@ -205,7 +205,7 @@ return [
  ### 软件
 * 官方免费Xftp和Xshell [https://www.netsarang.com/en/free-for-home-school/]（这个是官方免费的只需要填写姓名和邮箱就可以收到一封带有下载地址的官方邮件）
  ### composer 包分享
- * 自动获取客户端浏览器（内核和版本）网络状态（移动网络或者是WiFi）通过IP获取精确到城市的地理位置、移动设备可获取到 系统（IOS、Android精确到系统版本）、微信版本（使用微信时）的类库  [https://github.com/pizepei/TerminalInfo] 
+ * 自动获取客户端浏览器（内核和版本）网络状态（移动网络或者是WiFi）通过IP获取精确到城市的地理位置（支持自动更新本地纯真IP地址数据库）、移动设备可获取到 系统（IOS、Android精确到系统版本）、微信版本（使用微信时）的类库  [https://github.com/pizepei/TerminalInfo] 
    * composer require pizepei/terminal-info
  * 时间日历(农历公历互相转换) [https://github.com/XhinLiang/LunarCalendar]
    * composer require overtrue/chinese-calendar
