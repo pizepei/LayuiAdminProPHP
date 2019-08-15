@@ -13,7 +13,11 @@
  + 10、验证码方案、邮箱验证、手机验证 （手机验证  完善中）
  + 11、基础的系统监控、异步任务处理方案（完善中）等
  + 12、简单的shadowsocksr数据库版本的系统后台管理（用户、结点、套餐、账号监控）</br>
-
+## 由于其他项目的原因使项目很久没有维护了真的是非常抱歉下面有一些注意事项：
+ + 1、项目内置的TP5有不少安全漏洞请及时更新版本
+ + 2、现在会在当前状态下设置一个tag，后续会持续维护
+ + 3、为了方便大家交流后期会创建一个交流群
+ + 4、后期会在README.md中增加资源分享区，位置在最下面（可怕的不少你不会而是你都不知道有这么一个东西）
  
 等一个项目开始之初送需要基础功能方案。
 ## 如果你对LayuiAdmin、ThinkPHP5还不太了解请阅读下面的简单介绍：
@@ -197,5 +201,24 @@ return [
  + 1、获取LayuiAdmin授权并且选择代码，复制黏贴到public\static\index目录下 
  + 2、使用本项目代码在根目录进行粘贴替换。
  + 3、根据自己项目的需求对应用目录下config.php进行配置修改。
-
- 
+ ## 资源分享区
+ ### 软件
+* 官方免费Xftp和Xshell [https://www.netsarang.com/en/free-for-home-school/]（这个是官方免费的只需要填写姓名和邮箱就可以收到一封带有下载地址的官方邮件）
+ ### composer 包分享
+ * 自动获取客户端浏览器（内核和版本）网络状态（移动网络或者是WiFi）通过IP获取精确到城市的地理位置、移动设备可获取到 系统（IOS、Android精确到系统版本）、微信版本（使用微信时）的类库  [https://github.com/pizepei/TerminalInfo] 
+   * composer require pizepei/terminal-info
+ * 时间日历(农历公历互相转换) [https://github.com/XhinLiang/LunarCalendar]
+   * composer require overtrue/chinese-calendar
+#### PHP扩展安装
+* PHP 扩展下载[http://pecl.php.net/]
+* sql server 拓展安装（注意细节）
+    * 准备工作:
+        * 下载地址：[http://pecl.php.net/package/pdo_sqlsrv]
+        * 加入微软的源 curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssqlrelease.repo
+        * 或者一次性 安装所有依赖包
+            * 防止冲突先卸载原有版本(可选)  yum remove unixODBC 
+            * yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel nss_ldap openldap openldap-devel  openldap-clients openldap-servers libxslt-devel libevent-devel ntp  libtool-ltdl bison libtool vim-enhanced  msodbcsql mssql-tools unixODBC-devel    
+    * 编译安装pdo_sqlsrv驱动
+        * 避免出现make: *** No rule to make target `install'. Stop.错误（因为缺少依赖包的原因，请执行上面的依赖安装命令）
+        * 为了避免make 时出现【fatal error: sql.h: No such file or directory】错误 （ 安装unixodbc的工具包即可  yum install unixODBC-devel ）
+        * 与mysql不同 的dbh  new PDO("sqlsrv:Server=localhost,端口号;Database=数据库", 用户名 , 密码);  
